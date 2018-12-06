@@ -1,0 +1,80 @@
+GET http://localhost:8080/history/patient/95031709099
+
+###
+
+GET http://localhost:8080/opinion/doctor/Gregory-House
+
+###
+
+POST http://localhost:8080/opinion/create
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 4,
+  "filingDate":"2018-04-15",
+  "opinion": "Najs",
+  "rate":"GOOD"
+}
+
+###
+
+GET http://localhost:8080/availability/doctor/specialization/CARDIOLOGIST
+
+###
+
+GET http://localhost:8080/availability/doctor/Chris-Taub
+
+###
+
+POST http://localhost:8080/availability/reservation
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 5,
+  "visitStart": "2018-12-16T16:00:00",
+  "cost": 123
+}
+
+###
+
+GET http://localhost:8080/patient/pesel/95031709099
+
+###
+
+GET http://localhost:8080/patient/name/Konrad-Bolczyk
+
+###
+
+POST http://localhost:8080/patient/create
+Content-Type: application/json
+
+{
+  "firstName": "Pikej",
+  "surname": "Pikejowicz",
+  "secondName": null,
+  "gender": "MALE",
+  "birthDate": "1997-03-15",
+  "peselStr": "97031509099",
+  "street": "pikejowa 666",
+  "zipCodeStr": "69-666",
+  "city": "Warszawa",
+  "province": "mazowieckie",
+  "phoneNumberStr": "987654321"
+}
+
+###
+
+POST http://localhost:8080/account/create
+Content-Type: application/json
+
+{
+  "loginStr": "pikejemJestem",
+  "plainPassword": "heheszki",
+  "emailStr": "pikej.pikejowicz@gmail.com",
+  "accountType": "PATIENT",
+  "personId": 28
+}
+
+###

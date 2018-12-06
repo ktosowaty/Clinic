@@ -1,17 +1,5 @@
 package pl.edu.wat.wcy.people;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.test.util.ReflectionTestUtils;
-import pl.edu.wat.wcy.model.person.data.PhoneNumber;
-import pl.edu.wat.wcy.model.person.doctor.Doctor;
-import pl.edu.wat.wcy.model.person.doctor.Specialization;
-import pl.edu.wat.wcy.model.person.data.Gender;
-import pl.edu.wat.wcy.model.person.data.PersonalData;
-import pl.edu.wat.wcy.model.person.data.Pesel;
-
-import java.time.LocalDate;
-
 public class DoctorTest {
     /*@Test
     public void constructor_givenProperData_shouldCreateDoctor() {

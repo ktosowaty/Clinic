@@ -13,7 +13,7 @@ import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 @Table(name = "opinions")
 public class Opinion {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

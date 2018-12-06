@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.model;
+package pl.edu.wat.wcy.model.visit;
 
 import pl.edu.wat.wcy.model.benefit.Money;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
@@ -14,7 +14,7 @@ import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 @Table(name = "visits")
 public class Visit {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

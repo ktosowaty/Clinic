@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.AvailabilityDto;
-import pl.edu.wat.wcy.model.Visit;
+import pl.edu.wat.wcy.dto.VisitDto;
 import pl.edu.wat.wcy.model.person.doctor.Specialization;
 import pl.edu.wat.wcy.service.VisitService;
 
@@ -36,8 +36,8 @@ public class VisitController {
     }
 
     @PostMapping("/reservation")
-    public ResponseEntity<Visit> postVisit(@RequestBody Visit visit) {
-        visitService.reserveVisit(visit);
-        return new ResponseEntity<>(visit, HttpStatus.CREATED);
+    public ResponseEntity<VisitDto> postVisit(@RequestBody VisitDto visitDto) {
+        visitService.reserveVisit(visitDto);
+        return new ResponseEntity<>(visitDto, HttpStatus.CREATED);
     }
 }

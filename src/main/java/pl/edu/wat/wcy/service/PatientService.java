@@ -2,46 +2,69 @@ package pl.edu.wat.wcy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wat.wcy.model.person.account.Account;
-import pl.edu.wat.wcy.model.person.account.Email;
-import pl.edu.wat.wcy.model.person.data.Pesel;
+import pl.edu.wat.wcy.dto.PatientDto;
+import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.patient.Patient;
-import pl.edu.wat.wcy.repository.AccountRepository;
 import pl.edu.wat.wcy.repository.PatientRepository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
-    private final AccountRepository accountRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, AccountRepository accountRepository) {
+    public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
-        this.accountRepository = accountRepository;
     }
 
-    public Optional<Patient> findPatientByPesel(Pesel pesel) {
-        return patientRepository.findByPersonalDataPesel(pesel);
+    public Patient findPatientByPesel(String peselStr) {
+        Pesel pesel = new Pesel(peselStr);
+        Optional<Patient> patient = patientRepository.findByPesel(pesel);
+        if (!patient.isPresent()) throw new IllegalArgumentException("Patient with given pesel '" + pesel + "' doesn't exist.");
+        return patient.get();
     }
 
-    public Optional<Patient> findPatientByName(String firstName, String surname) {
-        return patientRepository.findByPersonalDataNameFirstNameAndPersonalDataNameSurname(firstName, surname);
+    public Patient findPatientByName(String firstName, String surname) {
+        Name name = new Name(firstName, surname);
+        Optional<Patient> patient = patientRepository.findByFullNameName(name);
+        if (!patient.isPresent()) throw new IllegalArgumentException("Patient with given name '"
+                + firstName + " " + surname + "' doesn't exist.");
+        return patient.get();
     }
 
-    public void savePatient(Patient patient) {
-        // TODO: 03.12.2018 to dla sekretarki - zapisanie pacjenta bez konta
-        Pesel pesel = patient.getPersonalData().getPesel();
-        Optional<Patient> existingPatient = patientRepository.findByPersonalDataPesel(pesel);
-        if (!existingPatient.isPresent()) patientRepository.save(patient);
-        else throw new IllegalArgumentException("Patient with this pesel " + pesel + " already exists.");
+    public void savePatient(PatientDto patientDto) {
+        FullName fullName = createFullName(patientDto);
+        Gender gender = patientDto.getGender();
+        LocalDate birthDate = patientDto.getBirthDate();
+        Pesel pesel = new Pesel(patientDto.getPeselStr());
+        checkIfPatientExist(pesel);
+        Address address = createAddress(patientDto);
+        PhoneNumber phoneNumber = new PhoneNumber(patientDto.getPhoneNumberStr());
+        Patient patient = new Patient(fullName, gender, birthDate, pesel, address, phoneNumber);
+        patientRepository.save(patient);
     }
 
-    public void saveAccount(Account account) {
-        Email email = account.getEmail();
-        Optional<Account> existingAccount = accountRepository.findByEmail(email);
-        if (!existingAccount.isPresent()) accountRepository.save(account);
-        else throw new IllegalArgumentException("Account with this email " + email + " already exists.");
+    private FullName createFullName(PatientDto patientDto) {
+        String firstName = patientDto.getFirstName();
+        String surname = patientDto.getSurname();
+        Name name = new Name(firstName, surname);
+        String secondName = patientDto.getSecondName();
+        return new FullName(name, secondName);
+    }
+
+    private void checkIfPatientExist(Pesel pesel) {
+        Optional<Patient> existingPatient = patientRepository.findByPesel(pesel);
+        if (existingPatient.isPresent())
+            throw new IllegalArgumentException("Patient with given pesel '" + pesel + "' already exists.");
+    }
+
+    private Address createAddress(PatientDto patientDto) {
+        String street = patientDto.getStreet();
+        ZipCode zipCode = new ZipCode(patientDto.getZipCodeStr());
+        String city = patientDto.getCity();
+        String province = patientDto.getProvince();
+        return new Address(street, zipCode, city, province);
     }
 }

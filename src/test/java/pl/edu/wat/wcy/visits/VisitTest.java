@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.test.util.ReflectionTestUtils;
 import pl.edu.wat.wcy.model.benefit.Money;
-import pl.edu.wat.wcy.model.Visit;
+import pl.edu.wat.wcy.model.visit.Visit;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 

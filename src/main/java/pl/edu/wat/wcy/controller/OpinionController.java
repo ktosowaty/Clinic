@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.wat.wcy.dto.OpinionDto;
 import pl.edu.wat.wcy.model.opinion.Opinion;
+import pl.edu.wat.wcy.model.opinion.OpinionProjection;
 import pl.edu.wat.wcy.service.OpinionService;
 
 import java.util.List;
@@ -20,15 +22,16 @@ public class OpinionController {
         this.opinionService = opinionService;
     }
 
-    @GetMapping("/doctor/{surname}")
-    public ResponseEntity<List<Opinion>> getOpinionsForDoctor(@PathVariable String surname) {
-        List<Opinion> opinions = opinionService.findOpinionsForDoctor(surname);
+    @GetMapping("/doctor/{firstName}-{surname}")
+    public ResponseEntity<List<OpinionProjection>> getOpinionsForDoctor(@PathVariable String firstName,
+                                                                        @PathVariable String surname) {
+        List<OpinionProjection> opinions = opinionService.findOpinionsForDoctor(firstName, surname);
         return new ResponseEntity<>(opinions, HttpStatus.OK);
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<Opinion> postOpinion(@RequestBody Opinion opinion) {
-        opinionService.saveOpinion(opinion);
-        return new ResponseEntity<>(opinion, HttpStatus.CREATED);
+    @PostMapping("/create")
+    public ResponseEntity<OpinionDto> postOpinion(@RequestBody OpinionDto opinionDto) {
+        opinionService.saveOpinion(opinionDto);
+        return new ResponseEntity<>(opinionDto, HttpStatus.CREATED);
     }
 }

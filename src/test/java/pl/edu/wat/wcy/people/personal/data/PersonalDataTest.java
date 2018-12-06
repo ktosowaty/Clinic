@@ -1,13 +1,5 @@
 package pl.edu.wat.wcy.people.personal.data;
 
-import org.junit.Assert;
-import org.junit.Test;
-import pl.edu.wat.wcy.model.person.data.Gender;
-import pl.edu.wat.wcy.model.person.data.PersonalData;
-import pl.edu.wat.wcy.model.person.data.Pesel;
-
-import java.time.LocalDate;
-
 public class PersonalDataTest {
     /*@Test
     public void constructor_givenProperData_shouldCreatePersonalDataObject() {

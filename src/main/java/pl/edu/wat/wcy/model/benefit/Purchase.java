@@ -12,7 +12,7 @@ import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 @Table(name = "purchases")
 public class Purchase {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

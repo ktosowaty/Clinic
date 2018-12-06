@@ -12,7 +12,7 @@ import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 @Table(name = "accounts")
 public class Account {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Embedded
@@ -28,10 +28,10 @@ public class Account {
     @Enumerated(value = EnumType.STRING)
     private AccountType accountType;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "account")
     private Person person;
 
-    private Account() {
+    protected Account() {
         // JPA
     }
 

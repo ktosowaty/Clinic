@@ -10,7 +10,7 @@ import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 @Table(name = "diseases")
 public class Disease {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column

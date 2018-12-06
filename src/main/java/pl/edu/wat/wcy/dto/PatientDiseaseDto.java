@@ -1,6 +1,5 @@
 package pl.edu.wat.wcy.dto;
 
-import pl.edu.wat.wcy.model.person.data.Name;
 import pl.edu.wat.wcy.model.person.data.Pesel;
 
 import java.time.LocalDate;
@@ -21,6 +20,8 @@ public class PatientDiseaseDto {
     private String medicineName;
 
     private String medicineDosage;
+
+    private PatientDiseaseDto() {}
 
     public PatientDiseaseDto(String patientFirstName, String patientSurname, Pesel patientPesel, String diseaseName,
                              String diagnosis, LocalDate diagnosisDate, String medicineName, String medicineDosage) {

@@ -36,6 +36,10 @@ public class Password {
         return BCrypt.hashpw(plainPassword, salt);
     }
 
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
     public boolean matches(String plainPassword) {
         requireNonNull(plainPassword, "Plain password");
         return BCrypt.checkpw(plainPassword, hashedPassword);

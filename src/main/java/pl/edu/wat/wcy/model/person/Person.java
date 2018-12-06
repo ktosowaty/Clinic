@@ -1,25 +1,41 @@
 package pl.edu.wat.wcy.model.person;
 
 import pl.edu.wat.wcy.model.person.account.Account;
-import pl.edu.wat.wcy.model.person.data.PersonalData;
+import pl.edu.wat.wcy.model.person.data.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 
 @Entity
-@Table(name = "persons")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Person {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Embedded
-    private PersonalData personalData;
+    private FullName fullName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @Column(nullable = false, updatable = false, length = 12)
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
+
+    @Column
+    private LocalDate birthDate;
+
+    @Embedded
+    private Pesel pesel;
+
+    @Embedded
+    private Address address;
+
+    @Embedded
+    private PhoneNumber phoneNumber;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -27,16 +43,44 @@ public abstract class Person {
         // JPA
     }
 
-    public Person(PersonalData personalData) {
-        this.personalData = requireNonNull(personalData, "personal data");
+    // todo: pesel+birthDate check
+    // todo: pesel+gender check
+    public Person(FullName fullName, Gender gender, LocalDate birthDate, Pesel pesel,
+                  Address address, PhoneNumber phoneNumber) {
+        this.fullName = requireNonNull(fullName, "full name");
+        this.gender = requireNonNull(gender, "gender");
+        this.birthDate = requireNonNull(birthDate, "birth date");
+        this.pesel = requireNonNull(pesel, "pesel");
+        this.address = requireNonNull(address, "address");
+        this.phoneNumber = requireNonNull(phoneNumber, "phone number");
     }
 
     public long getId() {
         return id;
     }
 
-    public PersonalData getPersonalData() {
-        return personalData;
+    public FullName getFullName() {
+        return fullName;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public Pesel getPesel() {
+        return pesel;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
     }
 
     @Override

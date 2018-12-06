@@ -13,6 +13,8 @@ public class AvailabilityDto {
 
     private LocalDateTime visitStart;
 
+    private AvailabilityDto() {}
+
     public AvailabilityDto(String doctorFirstName, String doctorSurname,
                            Specialization specialization, LocalDateTime visitStart) {
         this.doctorFirstName = doctorFirstName;
