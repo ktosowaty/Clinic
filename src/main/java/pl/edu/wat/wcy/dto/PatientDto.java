@@ -23,14 +23,14 @@ public class PatientDto {
 
     private String city;
 
-    private String province;
+    private String provinceStr;
 
     private String phoneNumberStr;
 
     private PatientDto() {}
 
     public PatientDto(String firstName, String surname, String secondName, Gender gender, LocalDate birthDate,
-                      String peselStr, String street, String zipCodeStr, String city, String province, String phoneNumberStr) {
+                      String peselStr, String street, String zipCodeStr, String city, String provinceStr, String phoneNumberStr) {
         this.firstName = firstName;
         this.surname = surname;
         this.secondName = secondName;
@@ -40,7 +40,7 @@ public class PatientDto {
         this.street = street;
         this.zipCodeStr = zipCodeStr;
         this.city = city;
-        this.province = province;
+        this.provinceStr = provinceStr;
         this.phoneNumberStr = phoneNumberStr;
     }
 
@@ -80,8 +80,8 @@ public class PatientDto {
         return city;
     }
 
-    public String getProvince() {
-        return province;
+    public String getProvinceStr() {
+        return provinceStr;
     }
 
     public String getPhoneNumberStr() {

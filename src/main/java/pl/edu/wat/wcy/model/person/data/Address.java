@@ -2,12 +2,12 @@ package pl.edu.wat.wcy.model.person.data;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import java.util.Objects;
 
 import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
-
-// todo: enumy na miasta i województwa?
 
 public class Address {
     @Column
@@ -20,13 +20,14 @@ public class Address {
     private String city;
 
     @Column
-    private String province;
+    @Enumerated(value = EnumType.STRING)
+    private Province province;
 
     private Address() {
         // JPA
     }
 
-    public Address(String street, ZipCode zipCode, String city, String province) {
+    public Address(String street, ZipCode zipCode, String city, Province province) {
         this.street = requireNonNull(street, "street");
         this.zipCode = requireNonNull(zipCode, "zip code");
         this.city = requireNonNull(city, "city");
@@ -45,7 +46,7 @@ public class Address {
         return city;
     }
 
-    public String getProvince() {
+    public Province getProvince() {
         return province;
     }
 

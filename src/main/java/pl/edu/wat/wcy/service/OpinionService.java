@@ -34,6 +34,7 @@ public class OpinionService {
         return opinionRepository.findAllByDoctorFullNameName(name);
     }
 
+    // TODO: 06.12.2018 jeśli pacjent nie był u tego lekarza na wizycie, to IAE
     public void saveOpinion(OpinionDto opinionDto) {
         Patient patient = findPatient(opinionDto.getPatientId());
         Doctor doctor = findDoctor(opinionDto.getDoctorId());

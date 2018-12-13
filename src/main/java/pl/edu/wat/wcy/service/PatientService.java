@@ -64,7 +64,12 @@ public class PatientService {
         String street = patientDto.getStreet();
         ZipCode zipCode = new ZipCode(patientDto.getZipCodeStr());
         String city = patientDto.getCity();
-        String province = patientDto.getProvince();
+        Province province = getProvince(patientDto);
         return new Address(street, zipCode, city, province);
+    }
+
+    private Province getProvince(PatientDto patientDto) {
+        String provinceStr = patientDto.getProvinceStr().trim().toLowerCase();
+        return Province.fromString(provinceStr);
     }
 }

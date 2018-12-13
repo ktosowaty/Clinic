@@ -6,7 +6,7 @@ import pl.edu.wat.wcy.model.person.data.Address;
 import pl.edu.wat.wcy.model.person.data.ZipCode;
 
 public class AddressTest {
-    @Test
+    /*@Test
     public void constructor_givenProperData_shouldCreateAddressObject() {
         // given
         String street = "bolczynska 15";
@@ -147,5 +147,5 @@ public class AddressTest {
 
         // then
         Assert.assertFalse(equalsResult);
-    }
+    }*/
 }
