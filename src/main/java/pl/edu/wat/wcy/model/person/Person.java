@@ -2,6 +2,7 @@ package pl.edu.wat.wcy.model.person;
 
 import pl.edu.wat.wcy.model.person.account.Account;
 import pl.edu.wat.wcy.model.person.data.*;
+import pl.edu.wat.wcy.model.person.data.address.Address;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,7 +24,7 @@ public abstract class Person {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-    @Column
+    @Column(nullable = false, updatable = false)
     private LocalDate birthDate;
 
     @Embedded
@@ -43,16 +44,30 @@ public abstract class Person {
         // JPA
     }
 
-    // todo: pesel+birthDate check
-    // todo: pesel+gender check
-    public Person(FullName fullName, Gender gender, LocalDate birthDate, Pesel pesel,
+    public Person(FullName fullName, Pesel pesel, Gender gender, LocalDate birthDate,
                   Address address, PhoneNumber phoneNumber) {
         this.fullName = requireNonNull(fullName, "full name");
-        this.gender = requireNonNull(gender, "gender");
-        this.birthDate = requireNonNull(birthDate, "birth date");
         this.pesel = requireNonNull(pesel, "pesel");
+        this.gender = checkGender(gender, pesel);
+        this.birthDate = checkBirthDate(birthDate, pesel);
         this.address = requireNonNull(address, "address");
         this.phoneNumber = requireNonNull(phoneNumber, "phone number");
+    }
+
+    private Gender checkGender(Gender gender, Pesel pesel) {
+        requireNonNull(gender, "gender");
+        Gender peselGender = pesel.getGender();
+        if (gender != peselGender)
+            throw new IllegalArgumentException("Given gender doesn't match the pesel one.");
+        return gender;
+    }
+
+    private LocalDate checkBirthDate(LocalDate birthDate, Pesel pesel) {
+        requireNonNull(birthDate, "birth date");
+        LocalDate peselBirthDate = pesel.getBirthDate();
+        if (birthDate != peselBirthDate)
+            throw new IllegalArgumentException("Given birth date doesn't match the pesel one.");
+        return birthDate;
     }
 
     public long getId() {

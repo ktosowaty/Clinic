@@ -1,10 +1,5 @@
 package pl.edu.wat.wcy.people.contact;
 
-import org.junit.Assert;
-import org.junit.Test;
-import pl.edu.wat.wcy.model.person.data.Address;
-import pl.edu.wat.wcy.model.person.data.ZipCode;
-
 public class AddressTest {
     /*@Test
     public void constructor_givenProperData_shouldCreateAddressObject() {

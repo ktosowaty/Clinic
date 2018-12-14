@@ -13,7 +13,7 @@ import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 public class Pesel {
     private static final int PESEL_LENGTH = 11;
 
-    @Column
+    @Column(nullable = false, length = 11)
     private String pesel;
 
     private Pesel() {
@@ -80,12 +80,28 @@ public class Pesel {
                 getDigit(pesel.charAt(6)) * 3 + getDigit(pesel.charAt(7)) + getDigit(pesel.charAt(8)) * 9 +
                 getDigit(pesel.charAt(9)) * 7) % 10;
         if (controlDigit != getDigit(pesel.charAt(10))) throw new IllegalArgumentException("Invalid control digit ("
-                + controlDigit + ") in pesel: " + pesel);
+                + controlDigit + ") in pesel: " + pesel + ".");
     }
 
     @JsonIgnore
     private int getDigit(Character character) {
         return Character.getNumericValue(character);
+    }
+
+    @JsonIgnore
+    public Gender getGender() {
+        int genderDigit = Character.getNumericValue(pesel.charAt(9));
+        if (genderDigit % 2 == 0) return Gender.FEMALE;
+        else return Gender.MALE;
+    }
+
+    @JsonIgnore
+    public LocalDate getBirthDate() {
+        String date = pesel.substring(0, 6);
+        int day = getDay(date);
+        int month = getMonth(date);
+        int year = getYear(date, month);
+        return LocalDate.of(year, month, day);
     }
 
     public String getPesel() {

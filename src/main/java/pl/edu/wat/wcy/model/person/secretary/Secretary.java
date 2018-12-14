@@ -2,6 +2,7 @@ package pl.edu.wat.wcy.model.person.secretary;
 
 import pl.edu.wat.wcy.model.person.Person;
 import pl.edu.wat.wcy.model.person.data.*;
+import pl.edu.wat.wcy.model.person.data.address.Address;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,8 +15,8 @@ public class Secretary extends Person {
         // JPA
     }
 
-    public Secretary(FullName fullName, Gender gender, LocalDate birthDate, Pesel pesel,
+    public Secretary(FullName fullName, Pesel pesel, Gender gender, LocalDate birthDate,
                      Address address, PhoneNumber phoneNumber) {
-        super(fullName, gender, birthDate, pesel, address, phoneNumber);
+        super(fullName, pesel, gender, birthDate, address, phoneNumber);
     }
 }

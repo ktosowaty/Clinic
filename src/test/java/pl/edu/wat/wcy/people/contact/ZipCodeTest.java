@@ -2,7 +2,7 @@ package pl.edu.wat.wcy.people.contact;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pl.edu.wat.wcy.model.person.data.ZipCode;
+import pl.edu.wat.wcy.model.person.data.address.ZipCode;
 
 public class ZipCodeTest {
     @Test

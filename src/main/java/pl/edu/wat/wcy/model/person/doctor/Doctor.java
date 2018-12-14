@@ -3,6 +3,7 @@ package pl.edu.wat.wcy.model.person.doctor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.edu.wat.wcy.model.person.Person;
 import pl.edu.wat.wcy.model.person.data.*;
+import pl.edu.wat.wcy.model.person.data.address.Address;
 
 import javax.persistence.*;
 
@@ -22,9 +23,9 @@ public class Doctor extends Person {
         // JPA
     }
 
-    public Doctor(FullName fullName, Gender gender, LocalDate birthDate, Pesel pesel,
+    public Doctor(FullName fullName, Pesel pesel, Gender gender, LocalDate birthDate,
                   Address address, PhoneNumber phoneNumber, Specialization specialization) {
-        super(fullName, gender, birthDate, pesel, address, phoneNumber);
+        super(fullName, pesel, gender, birthDate, address, phoneNumber);
         this.specialization = requireNonNull(specialization, "specialization");
     }
 

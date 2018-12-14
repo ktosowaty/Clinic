@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.model.person.data;
+package pl.edu.wat.wcy.model.person.data.address;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -10,13 +10,13 @@ import java.util.Objects;
 import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
 
 public class Address {
-    @Column
+    @Column(nullable = false, length = 40)
     private String street;
 
     @Embedded
     private ZipCode zipCode;
 
-    @Column
+    @Column(nullable = false, length = 30)
     private String city;
 
     @Column

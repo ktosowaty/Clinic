@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.model.person.data;
+package pl.edu.wat.wcy.model.person.data.address;
 
 import javax.persistence.Column;
 
