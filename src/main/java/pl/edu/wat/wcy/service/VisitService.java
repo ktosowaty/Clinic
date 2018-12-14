@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.dto.AvailabilityDto;
 import pl.edu.wat.wcy.dto.VisitDto;
+import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.visit.Visit;
 import pl.edu.wat.wcy.model.benefit.Money;
 import pl.edu.wat.wcy.model.person.doctor.Availability;
@@ -45,7 +46,6 @@ public class VisitService {
         return availabilityRepository.findAvailabilitiesForDoctor(firstName, surname);
     }
 
-    // TODO: 05.12.2018 jak sa obliczane koszty?
     public void reserveVisit(VisitDto visitDto) {
         Patient patient = findPatient(visitDto.getPatientId());
         Doctor doctor = findDoctor(visitDto.getDoctorId());
@@ -57,13 +57,13 @@ public class VisitService {
 
     private Patient findPatient(long patientId) {
         Optional<Patient> patient = patientRepository.findById(patientId);
-        if (!patient.isPresent()) throw new IllegalArgumentException("Patient with given id doesn't exist.");
+        if (!patient.isPresent()) throw new ResourceNotFoundException("patient", patientId);
         return patient.get();
     }
 
     private Doctor findDoctor(long doctorId) {
         Optional<Doctor> doctor = doctorRepository.findById(doctorId);
-        if (!doctor.isPresent()) throw new IllegalArgumentException("Doctor with given id doesn't exist.");
+        if (!doctor.isPresent()) throw new ResourceNotFoundException("doctor", doctorId);
         return doctor.get();
     }
 
@@ -76,13 +76,13 @@ public class VisitService {
 
     private void checkAvailability(LocalDateTime visitStart, Doctor doctor) {
         Optional<Availability> availability = availabilityRepository.findByVisitStartAndDoctor(visitStart, doctor);
-        if (!availability.isPresent()) throw new IllegalArgumentException("Doctor "
-                + doctor.getFullName().getName().getSurname() + " doesn't take patients at " + visitStart + ".");
+        if (!availability.isPresent()) throw new IllegalArgumentException("Doctor " + doctor.getFullName().getName()
+                + " doesn't take patients at " + visitStart + ".");
     }
 
     private void checkNotReserved(LocalDateTime visitStart, Doctor doctor) {
         Optional<Visit> existingVisit = visitRepository.findByVisitStartAndDoctor(visitStart, doctor);
         if (existingVisit.isPresent()) throw new IllegalArgumentException("Visit for doctor "
-                + doctor.getFullName().getName().getSurname() + " at " + visitStart + " has already been reserved.");
+                + doctor.getFullName().getName() + " at " + visitStart + " has already been reserved.");
     }
 }

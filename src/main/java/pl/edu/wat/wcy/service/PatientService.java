@@ -3,6 +3,7 @@ package pl.edu.wat.wcy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.dto.PatientDto;
+import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.data.address.Address;
 import pl.edu.wat.wcy.model.person.data.address.Province;
@@ -25,15 +26,14 @@ public class PatientService {
     public Patient findPatientByPesel(String peselStr) {
         Pesel pesel = new Pesel(peselStr);
         Optional<Patient> patient = patientRepository.findByPesel(pesel);
-        if (!patient.isPresent()) throw new IllegalArgumentException("Patient with given pesel '" + pesel + "' doesn't exist.");
+        if (!patient.isPresent()) throw new ResourceNotFoundException("patient", pesel);
         return patient.get();
     }
 
     public Patient findPatientByName(String firstName, String surname) {
         Name name = new Name(firstName, surname);
         Optional<Patient> patient = patientRepository.findByFullNameName(name);
-        if (!patient.isPresent()) throw new IllegalArgumentException("Patient with given name '"
-                + firstName + " " + surname + "' doesn't exist.");
+        if (!patient.isPresent()) throw new ResourceNotFoundException("patient", name);
         return patient.get();
     }
 

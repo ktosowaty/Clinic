@@ -40,4 +40,9 @@ public class Name {
     public int hashCode() {
         return Objects.hash(firstName, surname);
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + surname;
+    }
 }
