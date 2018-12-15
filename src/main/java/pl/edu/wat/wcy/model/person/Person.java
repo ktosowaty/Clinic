@@ -65,7 +65,7 @@ public abstract class Person {
     private LocalDate checkBirthDate(LocalDate birthDate, Pesel pesel) {
         requireNonNull(birthDate, "birth date");
         LocalDate peselBirthDate = pesel.getBirthDate();
-        if (birthDate != peselBirthDate)
+        if (!birthDate.equals(peselBirthDate))
             throw new IllegalArgumentException("Given birth date doesn't match the pesel one.");
         return birthDate;
     }
@@ -96,6 +96,12 @@ public abstract class Person {
 
     public PhoneNumber getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setAccount(Account account) {
+        requireNonNull(account, "account");
+        if (this.account != null) throw new IllegalArgumentException("This person already has an account.");
+        this.account = account;
     }
 
     @Override

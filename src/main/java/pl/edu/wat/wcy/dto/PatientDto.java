@@ -13,7 +13,7 @@ public class PatientDto {
 
     private Gender gender;
 
-    private LocalDate birthDate;
+    private String birthDateStr;
 
     private String peselStr;
 
@@ -29,13 +29,13 @@ public class PatientDto {
 
     private PatientDto() {}
 
-    public PatientDto(String firstName, String surname, String secondName, Gender gender, LocalDate birthDate,
+    public PatientDto(String firstName, String surname, String secondName, Gender gender, String birthDateStr,
                       String peselStr, String street, String zipCodeStr, String city, String provinceStr, String phoneNumberStr) {
         this.firstName = firstName;
         this.surname = surname;
         this.secondName = secondName;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.birthDateStr = birthDateStr;
         this.peselStr = peselStr;
         this.street = street;
         this.zipCodeStr = zipCodeStr;
@@ -60,8 +60,8 @@ public class PatientDto {
         return gender;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public String getBirthDateStr() {
+        return birthDateStr;
     }
 
     public String getPeselStr() {

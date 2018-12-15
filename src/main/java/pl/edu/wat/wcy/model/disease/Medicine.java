@@ -13,7 +13,7 @@ public class Medicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = false, updatable = false, length = 40)
     private String name;
 
     @Column

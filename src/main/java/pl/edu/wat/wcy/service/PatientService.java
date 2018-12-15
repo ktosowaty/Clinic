@@ -42,7 +42,7 @@ public class PatientService {
         Pesel pesel = new Pesel(patientDto.getPeselStr());
         checkIfPatientExist(pesel);
         Gender gender = patientDto.getGender();
-        LocalDate birthDate = patientDto.getBirthDate();
+        LocalDate birthDate = LocalDate.parse(patientDto.getBirthDateStr());
         Address address = createAddress(patientDto);
         PhoneNumber phoneNumber = new PhoneNumber(patientDto.getPhoneNumberStr());
         Patient patient = new Patient(fullName, pesel, gender, birthDate, address, phoneNumber);

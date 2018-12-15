@@ -25,21 +25,31 @@ public class AccountService {
     // TODO: 05.12.2018 rozszerzyć na doctor i secretary? niespójne
     // TODO: 14.12.2018 poprawic zapis w bazie
     public void saveAccount(AccountDto accountDto) {
-        Login login = new Login(accountDto.getLoginStr());
+        Login login = getLogin(accountDto);
         Password password = new Password(accountDto.getPlainPassword());
-        Email email = new Email(accountDto.getEmailStr());
-        checkIfAccountExist(email);
+        Email email = getEmail(accountDto);
         AccountType accountType = accountDto.getAccountType();
         Patient patient = findPatient(accountDto.getPersonId());
         Account account = new Account(login, password, email, accountType, patient);
         accountRepository.save(account);
+        patient.setAccount(account);
         patientRepository.save(patient);
     }
 
-    private void checkIfAccountExist(Email email) {
+    private Login getLogin(AccountDto accountDto) {
+        Login login = new Login(accountDto.getLoginStr());
+        Optional<Account> existingAccount = accountRepository.findByLogin(login);
+        if (existingAccount.isPresent())
+            throw new IllegalArgumentException("Account with given login '" + login + "' already exists.");
+        return login;
+    }
+
+    private Email getEmail(AccountDto accountDto) {
+        Email email = new Email(accountDto.getEmailStr());
         Optional<Account> existingAccount = accountRepository.findByEmail(email);
         if (existingAccount.isPresent())
             throw new IllegalArgumentException("Account with given email '" + email + "' already exists.");
+        return email;
     }
 
     // TODO: 05.12.2018 jw

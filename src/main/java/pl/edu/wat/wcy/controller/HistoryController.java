@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.wat.wcy.dto.HistoryRecordDto;
 import pl.edu.wat.wcy.dto.PatientDiseaseDto;
 import pl.edu.wat.wcy.service.HistoryService;
 
@@ -24,5 +25,11 @@ public class HistoryController {
     public ResponseEntity<List<PatientDiseaseDto>> getPatientHistory(@PathVariable String pesel) {
         List<PatientDiseaseDto> opinions = historyService.generatePatientHistory(pesel);
         return new ResponseEntity<>(opinions, HttpStatus.OK);
+    }
+
+    @PostMapping("/create-record")
+    public ResponseEntity<HistoryRecordDto> postHistoryRecord(@RequestBody HistoryRecordDto historyRecordDto) {
+        historyService.saveRecord(historyRecordDto);
+        return new ResponseEntity<>(historyRecordDto, HttpStatus.CREATED);
     }
 }

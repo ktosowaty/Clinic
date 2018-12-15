@@ -55,12 +55,12 @@ Content-Type: application/json
   "surname": "Pikejowicz",
   "secondName": null,
   "gender": "MALE",
-  "birthDate": "1997-03-15",
+  "birthDateStr": "1997-03-15",
   "peselStr": "97031509099",
   "street": "pikejowa 666",
   "zipCodeStr": "69-666",
   "city": "Warszawa",
-  "province": "mazowieckie",
+  "provinceStr": "mazowieckie",
   "phoneNumberStr": "987654321"
 }
 
@@ -74,7 +74,51 @@ Content-Type: application/json
   "plainPassword": "heheszki",
   "emailStr": "pikej.pikejowicz@gmail.com",
   "accountType": "PATIENT",
-  "personId": 31
+  "personId": 41
+}
+
+###
+
+POST http://localhost:8080/history/create-record
+Content-Type: application/json
+
+{
+  "patientId": 41,
+  "diseaseName": "Pikejoza",
+  "diagnosis": "Pacjet z przewlekłym pierdolcem pospolitym.",
+  "diagnosisDateStr": "2018-10-10",
+  "medicineName": "Xyzal",
+  "medicineDiseaseDosage": "2 razy dziennie co 12 godzin."
+}
+
+###
+
+
+GET http://localhost:8080/medicine/Xyzal
+
+###
+
+POST http://localhost:8080/medicine/create
+Content-Type: application/json
+
+{
+  "name": "Xyzal",
+  "description": "Lek przeciwalergiczny.",
+  "sideEffects": "Senność, otępienie."
+}
+
+###
+
+GET http://localhost:8080/disease/Pikejoza
+
+###
+
+POST http://localhost:8080/disease/create
+Content-Type: application/json
+
+{
+  "name": "Pikejoza",
+  "description": "Choroba bezobjawowa atakująca studentów WAT."
 }
 
 ###

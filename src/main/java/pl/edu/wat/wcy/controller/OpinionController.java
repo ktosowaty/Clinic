@@ -5,8 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.OpinionDto;
-import pl.edu.wat.wcy.model.opinion.Opinion;
-import pl.edu.wat.wcy.model.opinion.OpinionProjection;
+import pl.edu.wat.wcy.dto.OpinionProjection;
 import pl.edu.wat.wcy.service.OpinionService;
 
 import java.util.List;

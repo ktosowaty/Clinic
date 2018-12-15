@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.dto.OpinionDto;
 import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.opinion.Opinion;
-import pl.edu.wat.wcy.model.opinion.OpinionProjection;
+import pl.edu.wat.wcy.dto.OpinionProjection;
 import pl.edu.wat.wcy.model.person.data.Name;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
 import pl.edu.wat.wcy.model.person.patient.Patient;
