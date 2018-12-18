@@ -2,7 +2,8 @@ package pl.edu.wat.wcy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wat.wcy.dto.PatientDto;
+import pl.edu.wat.wcy.dto.person.PatientDto;
+import pl.edu.wat.wcy.dto.person.PatientProjection;
 import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.data.address.Address;
@@ -23,18 +24,16 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-    public Patient findPatientByPesel(String peselStr) {
+    public PatientProjection findPatientByPesel(String peselStr) {
         Pesel pesel = new Pesel(peselStr);
-        Optional<Patient> patient = patientRepository.findByPesel(pesel);
-        if (!patient.isPresent()) throw new ResourceNotFoundException("patient", pesel);
-        return patient.get();
+        return patientRepository.findByPesel(pesel)
+                .orElseThrow(() -> new ResourceNotFoundException("patient", pesel));
     }
 
-    public Patient findPatientByName(String firstName, String surname) {
+    public PatientProjection findPatientByName(String firstName, String surname) {
         Name name = new Name(firstName, surname);
-        Optional<Patient> patient = patientRepository.findByFullNameName(name);
-        if (!patient.isPresent()) throw new ResourceNotFoundException("patient", name);
-        return patient.get();
+        return patientRepository.findByFullNameName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("patient", name));
     }
 
     public void savePatient(PatientDto patientDto) {
@@ -58,7 +57,7 @@ public class PatientService {
     }
 
     private void checkIfPatientExist(Pesel pesel) {
-        Optional<Patient> existingPatient = patientRepository.findByPesel(pesel);
+        Optional<PatientProjection> existingPatient = patientRepository.findByPesel(pesel);
         if (existingPatient.isPresent())
             throw new IllegalArgumentException("Patient with given pesel '" + pesel + "' already exists.");
     }

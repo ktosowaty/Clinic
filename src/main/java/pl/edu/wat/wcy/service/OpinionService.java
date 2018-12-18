@@ -2,10 +2,10 @@ package pl.edu.wat.wcy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wat.wcy.dto.OpinionDto;
+import pl.edu.wat.wcy.dto.opinion.OpinionDto;
 import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.opinion.Opinion;
-import pl.edu.wat.wcy.dto.OpinionProjection;
+import pl.edu.wat.wcy.dto.opinion.OpinionProjection;
 import pl.edu.wat.wcy.model.person.data.Name;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
 import pl.edu.wat.wcy.model.person.patient.Patient;
@@ -49,15 +49,13 @@ public class OpinionService {
     }
 
     private Patient findPatient(long patientId) {
-        Optional<Patient> patient = patientRepository.findById(patientId);
-        if (!patient.isPresent()) throw new ResourceNotFoundException("patient", patientId);
-        return patient.get();
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("patient", patientId));
     }
 
     private Doctor findDoctor(long doctorId) {
-        Optional<Doctor> doctor = doctorRepository.findById(doctorId);
-        if (!doctor.isPresent()) throw new ResourceNotFoundException("doctor", doctorId);
-        return doctor.get();
+        return doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException("doctor", doctorId));
     }
 
     private void checkIfPatientVisitedDoctor(Patient patient, Doctor doctor) {

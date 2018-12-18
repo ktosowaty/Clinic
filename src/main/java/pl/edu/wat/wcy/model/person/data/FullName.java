@@ -5,7 +5,7 @@ import javax.persistence.Embedded;
 
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class FullName {
     @Embedded

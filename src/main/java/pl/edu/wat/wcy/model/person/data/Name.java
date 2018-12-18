@@ -3,7 +3,7 @@ package pl.edu.wat.wcy.model.person.data;
 import javax.persistence.Column;
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class Name {
     @Column(nullable = false, updatable = false, length = 20)

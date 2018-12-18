@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.edu.wat.wcy.dto.AvailabilityDto;
+import pl.edu.wat.wcy.dto.visit.AvailabilityDto;
 import pl.edu.wat.wcy.model.person.doctor.Availability;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
 import pl.edu.wat.wcy.model.person.doctor.Specialization;

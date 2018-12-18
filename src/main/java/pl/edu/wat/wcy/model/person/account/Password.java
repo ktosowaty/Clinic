@@ -4,7 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Column;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class Password {
     private static final int MIN_PASSWORD_LENGTH = 8;

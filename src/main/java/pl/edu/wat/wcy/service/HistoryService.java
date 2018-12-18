@@ -2,8 +2,8 @@ package pl.edu.wat.wcy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wat.wcy.dto.HistoryRecordDto;
-import pl.edu.wat.wcy.dto.PatientDiseaseDto;
+import pl.edu.wat.wcy.dto.history.HistoryRecordDto;
+import pl.edu.wat.wcy.dto.history.PatientDiseaseDto;
 import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.disease.Disease;
 import pl.edu.wat.wcy.model.disease.Medicine;
@@ -15,7 +15,6 @@ import pl.edu.wat.wcy.repository.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HistoryService {
@@ -52,15 +51,13 @@ public class HistoryService {
     }
 
     private Patient findPatient(long patientId) {
-        Optional<Patient> patient = patientRepository.findById(patientId);
-        if (!patient.isPresent()) throw new ResourceNotFoundException("patient", patientId);
-        return patient.get();
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("patient", patientId));
     }
 
     private Disease findDisease(String name) {
-        Optional<Disease> disease = diseaseRepository.findByName(name);
-        if (!disease.isPresent()) throw new ResourceNotFoundException("disease", name);
-        return disease.get();
+        return diseaseRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("disease", name));
     }
 
     private PatientDisease createPatientDisease(Patient patient, Disease disease, HistoryRecordDto historyRecordDto) {
@@ -70,9 +67,8 @@ public class HistoryService {
     }
 
     private Medicine findMedicine(String name) {
-        Optional<Medicine> medicine = medicineRepository.findByName(name);
-        if (!medicine.isPresent()) throw new ResourceNotFoundException("medicine", name);
-        return medicine.get();
+        return medicineRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("medicine", name));
     }
 
     private MedicineDisease createMedicineDisease(Medicine medicine, PatientDisease patientDisease,

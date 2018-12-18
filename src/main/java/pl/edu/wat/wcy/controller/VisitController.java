@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wat.wcy.dto.AvailabilityDto;
-import pl.edu.wat.wcy.dto.VisitDto;
+import pl.edu.wat.wcy.dto.visit.AvailabilityDto;
+import pl.edu.wat.wcy.dto.visit.VisitRequestDto;
+import pl.edu.wat.wcy.dto.visit.VisitResponseDto;
 import pl.edu.wat.wcy.model.person.doctor.Specialization;
 import pl.edu.wat.wcy.service.VisitService;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/availability")
+@RequestMapping("/visit")
 public class VisitController {
     private final VisitService visitService;
 
@@ -36,8 +37,8 @@ public class VisitController {
     }
 
     @PostMapping("/reservation")
-    public ResponseEntity<VisitDto> postVisit(@RequestBody VisitDto visitDto) {
-        visitService.reserveVisit(visitDto);
-        return new ResponseEntity<>(visitDto, HttpStatus.CREATED);
+    public ResponseEntity<VisitResponseDto> postVisit(@RequestBody VisitRequestDto request) {
+        VisitResponseDto response = visitService.reserveVisit(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

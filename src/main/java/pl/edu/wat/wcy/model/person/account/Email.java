@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class Email {
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 @Entity
 @Table(name = "opinions")

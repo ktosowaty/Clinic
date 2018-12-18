@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 @Entity
 @Table(name = "purchases")
@@ -29,9 +29,7 @@ public class Purchase {
     @Column
     private LocalDate toDate;
 
-    private Purchase() {
-        // JPA
-    }
+    private Purchase() {}
 
     public Purchase(Patient patient, BenefitPackage benefitPackage, LocalDate fromDate, LocalDate toDate) {
         this.patient = requireNonNull(patient, "patient");

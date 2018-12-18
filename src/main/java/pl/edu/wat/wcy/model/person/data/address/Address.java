@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class Address {
     @Column(nullable = false, length = 40)

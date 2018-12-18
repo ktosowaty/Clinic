@@ -4,7 +4,7 @@ import javax.persistence.Column;
 
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class Money {
     @Column

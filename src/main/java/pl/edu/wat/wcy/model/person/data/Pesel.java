@@ -8,7 +8,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class Pesel {
     private static final int PESEL_LENGTH = 11;

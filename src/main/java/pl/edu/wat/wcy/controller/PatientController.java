@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wat.wcy.dto.PatientDto;
+import pl.edu.wat.wcy.dto.person.PatientDto;
+import pl.edu.wat.wcy.dto.person.PatientProjection;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 import pl.edu.wat.wcy.service.PatientService;
 
@@ -20,19 +21,19 @@ public class PatientController {
     }
 
     @GetMapping("/pesel/{peselStr}")
-    public ResponseEntity<Patient> getPatientByPesel(@PathVariable String peselStr) {
-        Patient patient = patientService.findPatientByPesel(peselStr);
+    public ResponseEntity<PatientProjection> getPatientByPesel(@PathVariable String peselStr) {
+        PatientProjection patient = patientService.findPatientByPesel(peselStr);
         return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
     @GetMapping("/name/{firstName}-{surname}")
-    public ResponseEntity<Patient> getPatientByName(@PathVariable String firstName,
-                                                    @PathVariable String surname) {
-        Patient patient = patientService.findPatientByName(firstName, surname);
+    public ResponseEntity<PatientProjection> getPatientByName(@PathVariable String firstName,
+                                                              @PathVariable String surname) {
+        PatientProjection patient = patientService.findPatientByName(firstName, surname);
         return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     public ResponseEntity<PatientDto> postPatient(@RequestBody PatientDto patientDto) {
         patientService.savePatient(patientDto);
         return new ResponseEntity<>(patientDto, HttpStatus.CREATED);

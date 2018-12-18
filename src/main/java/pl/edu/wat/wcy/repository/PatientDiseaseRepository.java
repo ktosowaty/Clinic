@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.edu.wat.wcy.dto.PatientDiseaseDto;
+import pl.edu.wat.wcy.dto.history.PatientDiseaseDto;
 import pl.edu.wat.wcy.model.disease.PatientDisease;
 import pl.edu.wat.wcy.model.person.data.Pesel;
 

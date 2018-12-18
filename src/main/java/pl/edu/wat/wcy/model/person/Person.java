@@ -1,6 +1,6 @@
 package pl.edu.wat.wcy.model.person;
 
-import pl.edu.wat.wcy.model.person.account.Account;
+import pl.edu.wat.wcy.model.person.account.User;
 import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.data.address.Address;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static pl.edu.wat.wcy.utils.Validator.requireNonNull;
+import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -36,13 +36,10 @@ public abstract class Person {
     @Embedded
     private PhoneNumber phoneNumber;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "person")
+    private User user;
 
-    protected Person() {
-        // JPA
-    }
+    protected Person() {}
 
     public Person(FullName fullName, Pesel pesel, Gender gender, LocalDate birthDate,
                   Address address, PhoneNumber phoneNumber) {
@@ -98,10 +95,10 @@ public abstract class Person {
         return phoneNumber;
     }
 
-    public void setAccount(Account account) {
-        requireNonNull(account, "account");
-        if (this.account != null) throw new IllegalArgumentException("This person already has an account.");
-        this.account = account;
+    public void setUser(User user) {
+        requireNonNull(user, "user");
+        if (this.user != null) throw new IllegalArgumentException("This person already has an account.");
+        this.user = user;
     }
 
     @Override

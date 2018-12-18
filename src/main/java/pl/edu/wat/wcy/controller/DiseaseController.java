@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wat.wcy.dto.DiseaseDto;
-import pl.edu.wat.wcy.dto.DiseaseProjection;
+import pl.edu.wat.wcy.dto.disease.DiseaseDto;
+import pl.edu.wat.wcy.dto.disease.DiseaseProjection;
 import pl.edu.wat.wcy.service.DiseaseService;
 
 @RestController
