@@ -34,9 +34,7 @@ public class Opinion {
     @Enumerated(value = EnumType.STRING)
     private Rate rate;
 
-    private Opinion() {
-        // JPA
-    }
+    private Opinion() {}
 
     public Opinion(Patient patient, Doctor doctor, LocalDate filingDate, String opinion, Rate rate) {
         this.patient = requireNonNull(patient, "patient");

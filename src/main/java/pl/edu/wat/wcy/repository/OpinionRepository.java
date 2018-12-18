@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.edu.wat.wcy.model.opinion.Opinion;
 import pl.edu.wat.wcy.dto.opinion.OpinionProjection;
-import pl.edu.wat.wcy.model.person.data.Name;
+import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 

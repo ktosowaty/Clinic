@@ -1,13 +1,13 @@
 package pl.edu.wat.wcy.dto.benefit;
 
-public class PurchaseDto {
+public class PurchaseRequestDto {
     private long patientId;
 
     private long benefitPackageId;
 
-    private PurchaseDto() {}
+    private PurchaseRequestDto() {}
 
-    public PurchaseDto(long patientId, long benefitPackageId) {
+    public PurchaseRequestDto(long patientId, long benefitPackageId) {
         this.patientId = patientId;
         this.benefitPackageId = benefitPackageId;
     }

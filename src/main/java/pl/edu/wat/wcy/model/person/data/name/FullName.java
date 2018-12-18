@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.model.person.data;
+package pl.edu.wat.wcy.model.person.data.name;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -14,9 +14,7 @@ public class FullName {
     @Column(updatable = false, length = 20)
     private String secondName;
 
-    private FullName() {
-        // JPA
-    }
+    private FullName() {}
 
     public FullName(Name name, String secondName) {
         this.name = requireNonNull(name, "name");

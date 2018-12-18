@@ -14,9 +14,7 @@ public class Email {
     @Column
     private String email;
 
-    private Email() {
-        // JPA
-    }
+    private Email() {}
 
     public Email(String email) {
         requireNonNull(email, "email");

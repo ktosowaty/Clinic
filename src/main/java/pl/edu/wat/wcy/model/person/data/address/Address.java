@@ -23,9 +23,7 @@ public class Address {
     @Enumerated(value = EnumType.STRING)
     private Province province;
 
-    private Address() {
-        // JPA
-    }
+    private Address() {}
 
     public Address(String street, ZipCode zipCode, String city, Province province) {
         this.street = requireNonNull(street, "street");

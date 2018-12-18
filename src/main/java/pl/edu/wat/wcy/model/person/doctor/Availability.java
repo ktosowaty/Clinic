@@ -20,9 +20,7 @@ public class Availability {
     @Column
     private LocalDateTime visitStart;
 
-    private Availability() {
-        // JPA
-    }
+    private Availability() {}
 
     public Availability(Doctor doctor, LocalDateTime visitStart) {
         this.doctor = requireNonNull(doctor, "doctor");

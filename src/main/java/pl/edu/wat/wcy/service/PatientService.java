@@ -9,6 +9,8 @@ import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.data.address.Address;
 import pl.edu.wat.wcy.model.person.data.address.Province;
 import pl.edu.wat.wcy.model.person.data.address.ZipCode;
+import pl.edu.wat.wcy.model.person.data.name.FullName;
+import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 import pl.edu.wat.wcy.repository.PatientRepository;
 

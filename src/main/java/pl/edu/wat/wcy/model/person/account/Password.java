@@ -14,9 +14,7 @@ public class Password {
     @Column(nullable = false)
     private String hashedPassword;
 
-    private Password() {
-        // JPA
-    }
+    private Password() {}
 
     public Password(String plainPassword) {
         checkPassword(plainPassword);

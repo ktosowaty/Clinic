@@ -5,6 +5,7 @@ import pl.edu.wat.wcy.model.benefit.Money;
 import pl.edu.wat.wcy.model.person.Person;
 import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.data.address.Address;
+import pl.edu.wat.wcy.model.person.data.name.FullName;
 
 import javax.persistence.*;
 
@@ -23,9 +24,7 @@ public class Doctor extends Person {
     @Embedded
     private Money visitCost;
 
-    protected Doctor() {
-        // JPA
-    }
+    protected Doctor() {}
 
     public Doctor(FullName fullName, Pesel pesel, Gender gender, LocalDate birthDate,
                   Address address, PhoneNumber phoneNumber, Specialization specialization, Money visitCost) {

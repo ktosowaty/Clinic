@@ -3,7 +3,8 @@ package pl.edu.wat.wcy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.dto.benefit.BenefitPackageProjection;
-import pl.edu.wat.wcy.dto.benefit.PurchaseDto;
+import pl.edu.wat.wcy.dto.benefit.PurchaseRequestDto;
+import pl.edu.wat.wcy.dto.benefit.PurchaseResponseDto;
 import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.benefit.BenefitPackage;
 import pl.edu.wat.wcy.model.benefit.Purchase;
@@ -33,13 +34,15 @@ public class BenefitPackageService {
         return benefitPackageRepository.findAllProjectedBy();
     }
 
-    public void purchasePackage(PurchaseDto purchaseDto) {
-        Patient patient = findPatient(purchaseDto.getPatientId());
-        BenefitPackage benefitPackage = findPackage(purchaseDto.getBenefitPackageId());
+    public PurchaseResponseDto purchasePackage(PurchaseRequestDto purchaseRequestDto) {
+        Patient patient = findPatient(purchaseRequestDto.getPatientId());
+        BenefitPackage benefitPackage = findPackage(purchaseRequestDto.getBenefitPackageId());
         LocalDate fromDate = LocalDate.now();
         LocalDate toDate = fromDate.plusMonths(12);
         Purchase purchase = new Purchase(patient, benefitPackage, fromDate, toDate);
         purchaseRepository.save(purchase);
+        return new PurchaseResponseDto(patient.getFullName().getName(),
+                benefitPackage.getName(), fromDate, toDate, benefitPackage.getYearCost());
     }
 
     private Patient findPatient(long patientId) {

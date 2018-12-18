@@ -1,7 +1,7 @@
 package pl.edu.wat.wcy.dto.visit;
 
 import pl.edu.wat.wcy.model.benefit.Money;
-import pl.edu.wat.wcy.model.person.data.Name;
+import pl.edu.wat.wcy.model.person.data.name.Name;
 
 import java.time.LocalDateTime;
 

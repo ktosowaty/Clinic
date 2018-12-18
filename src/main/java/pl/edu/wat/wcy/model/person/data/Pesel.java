@@ -16,9 +16,7 @@ public class Pesel {
     @Column(nullable = false, length = 11)
     private String pesel;
 
-    private Pesel() {
-        // JPA
-    }
+    private Pesel() {}
 
     public Pesel(String pesel) {
         checkPesel(pesel);

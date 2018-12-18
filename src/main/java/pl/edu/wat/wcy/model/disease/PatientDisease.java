@@ -29,9 +29,7 @@ public class PatientDisease {
     @Column
     private LocalDate diagnosisDate;
 
-    private PatientDisease() {
-        // JPA
-    }
+    private PatientDisease() {}
 
     public PatientDisease(Patient patient, Disease disease, String diagnosis, LocalDate diagnosisDate) {
         this.patient = requireNonNull(patient, "patient");

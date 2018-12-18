@@ -10,9 +10,7 @@ public class Money {
     @Column
     private long value;
 
-    private Money() {
-        // JPA
-    }
+    private Money() {}
 
     public Money(long value) {
         this.value = value;

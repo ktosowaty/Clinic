@@ -2,7 +2,7 @@ package pl.edu.wat.wcy.repository;
 
 import org.springframework.stereotype.Repository;
 import pl.edu.wat.wcy.dto.person.PatientProjection;
-import pl.edu.wat.wcy.model.person.data.Name;
+import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.data.Pesel;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 

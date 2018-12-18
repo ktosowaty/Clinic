@@ -31,9 +31,7 @@ public class Visit {
     @Embedded
     private Money cost;
 
-    private Visit() {
-        // JPA
-    }
+    private Visit() {}
 
     public Visit(Patient patient, Doctor doctor, LocalDateTime visitStart, Money cost) {
         this.patient = requireNonNull(patient, "patient");

@@ -23,9 +23,7 @@ public class MedicineDisease {
     @Column
     private String dosage;
 
-    private MedicineDisease() {
-        // JPA
-    }
+    private MedicineDisease() {}
 
     public MedicineDisease(Medicine medicine, PatientDisease patientDisease, String dosage) {
         this.medicine = requireNonNull(medicine, "medicine");

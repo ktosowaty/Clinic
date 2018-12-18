@@ -3,6 +3,7 @@ package pl.edu.wat.wcy.model.person;
 import pl.edu.wat.wcy.model.person.account.User;
 import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.data.address.Address;
+import pl.edu.wat.wcy.model.person.data.name.FullName;
 
 import javax.persistence.*;
 import java.time.LocalDate;

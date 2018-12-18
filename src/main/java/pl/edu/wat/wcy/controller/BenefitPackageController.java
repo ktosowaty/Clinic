@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.benefit.BenefitPackageProjection;
-import pl.edu.wat.wcy.dto.benefit.PurchaseDto;
+import pl.edu.wat.wcy.dto.benefit.PurchaseRequestDto;
+import pl.edu.wat.wcy.dto.benefit.PurchaseResponseDto;
 import pl.edu.wat.wcy.service.BenefitPackageService;
 
 import java.util.List;
@@ -28,8 +29,8 @@ public class BenefitPackageController {
     }
 
     @PostMapping("/purchase")
-    public ResponseEntity<PurchaseDto> postPurchase(@RequestBody PurchaseDto purchaseDto) {
-        benefitPackageService.purchasePackage(purchaseDto);
-        return new ResponseEntity<>(purchaseDto, HttpStatus.CREATED);
+    public ResponseEntity<PurchaseResponseDto> postPurchase(@RequestBody PurchaseRequestDto request) {
+        PurchaseResponseDto response = benefitPackageService.purchasePackage(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

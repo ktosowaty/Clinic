@@ -8,9 +8,7 @@ public class ZipCode {
     @Column(length = 6)
     private String code;
 
-    private ZipCode() {
-        // JPA
-    }
+    private ZipCode() {}
 
     public ZipCode(String code) {
         if (!isValidZipCode(code)) throw new IllegalArgumentException("Invalid zip code: " + code + ".");

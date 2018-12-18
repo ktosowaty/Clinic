@@ -9,9 +9,7 @@ public class PhoneNumber {
     @Column(length = 9)
     private String number;
 
-    private PhoneNumber() {
-        // JPA
-    }
+    private PhoneNumber() {}
 
     public PhoneNumber(String number) {
         if (!isValidPhoneNumber(number)) throw new IllegalArgumentException("Given number is not valid: " + number + ".");

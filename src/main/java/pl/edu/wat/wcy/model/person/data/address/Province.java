@@ -1,20 +1,20 @@
 package pl.edu.wat.wcy.model.person.data.address;
 
 public enum Province {
-    DOLNOŚLĄSKIE("dolnośląskie"),
+    DOLNOSLASKIE("dolnośląskie"),
     KUJAWSKO_POMORSKIE("kujawsko-pomorskie"),
     LUBELSKIE("lubelskie"),
     LUBUSKIE("lubuskie"),
-    ŁÓDZKIE("łódzkie"),
-    MAŁOPOLSKIE("małopolskie"),
+    LODZKIE("łódzkie"),
+    MALOPOLSKIE("małopolskie"),
     MAZOWIECKIE("mazowieckie"),
     OPOLSKIE("opolskie"),
     PODKARPACKIE("podkarpackie"),
     PODLASKIE("podlaskie"),
     POMORSKIE("pomorskie"),
-    ŚLĄSKIE("śląskie"),
-    ŚWIĘTOKRZYSKIE("świętokrzyskie"),
-    WARMIŃSKO_MAZURSKIE("warmińsko-mazurskie"),
+    SLASKIE("śląskie"),
+    SWIETOKRZYSKIE("świętokrzyskie"),
+    WARMINSKO_MAZURSKIE("warmińsko-mazurskie"),
     WIELKOPOLSKIE("wielkopolskie"),
     ZACHODNIOPOMORSKIE("zachodniopomorskie");
 
