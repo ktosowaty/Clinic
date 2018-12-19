@@ -12,8 +12,8 @@ import java.util.List;
 
 @Repository
 public interface PatientDiseaseRepository extends JpaRepository<PatientDisease, Long> {
-    @Query("select new pl.edu.wat.wcy.dto.history.PatientDiseaseDto (p.fullName.name.firstName, p.fullName.name.surname, " +
-            "p.pesel, d.name, pd.diagnosis, pd.diagnosisDate, m.name, md.dosage) " +
+    @Query("select new pl.edu.wat.wcy.dto.history.PatientDiseaseDto (d.name, pd.diagnosis, pd.diagnosisDate, " +
+            "m.name, md.dosage) " +
             "from PatientDisease as pd " +
             "left join Patient as p on p.id = pd.patient.id " +
             "left join Disease as d on d.id = pd.disease.id " +
@@ -21,5 +21,16 @@ public interface PatientDiseaseRepository extends JpaRepository<PatientDisease, 
             "left join Medicine as m on m.id = md.medicine.id " +
             "where p.pesel = :patientPesel " +
             "order by pd.diagnosisDate desc")
-    List<PatientDiseaseDto> findPatientDiseases(@Param("patientPesel") Pesel patientPesel);
+    List<PatientDiseaseDto> findPatientDiseasesUsingPesel(@Param("patientPesel") Pesel patientPesel);
+
+    @Query("select new pl.edu.wat.wcy.dto.history.PatientDiseaseDto (d.name, pd.diagnosis, pd.diagnosisDate, " +
+            "m.name, md.dosage) " +
+            "from PatientDisease as pd " +
+            "left join Patient as p on p.id = pd.patient.id " +
+            "left join Disease as d on d.id = pd.disease.id " +
+            "left join MedicineDisease as md on pd.id = md.patientDisease.id " +
+            "left join Medicine as m on m.id = md.medicine.id " +
+            "where p.id = :patientId " +
+            "order by pd.diagnosisDate desc")
+    List<PatientDiseaseDto> findPatientDiseasesUsingId(@Param("patientId") long patientId);
 }

@@ -1,10 +1,11 @@
-package pl.edu.wat.wcy.security;
+package pl.edu.wat.wcy.service.token;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.compression.GzipCompressionCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import pl.edu.wat.wcy.security.AuthenticatedUser;
 
 import java.time.Instant;
 import java.util.Date;
@@ -30,11 +31,11 @@ public class JWTTokens implements TokenVerifier, TokenGenerator {
     private final String secretKey;
 
     @Autowired
-    JWTTokens(final Clock clock,
-              @Value("${jwt.issuer}") final String issuer,
-              @Value("${jwt.expiration-sec}") final int expirationSec,
-              @Value("${jwt.clock-skew-sec}") final int clockSkewSec,
-              @Value("${jwt.secret}") final String secret) {
+    JWTTokens(Clock clock,
+              @Value("${jwt.issuer}") String issuer,
+              @Value("${jwt.expiration-sec}") int expirationSec,
+              @Value("${jwt.clock-skew-sec}") int clockSkewSec,
+              @Value("${jwt.secret}") String secret) {
         this.clock = requireNonNull(clock, "clock");
         this.issuer = requireNonNull(issuer, "issuer");
         this.expirationSec = requireNonNegative(expirationSec, "expiration sec");

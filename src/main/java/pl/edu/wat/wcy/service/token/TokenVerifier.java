@@ -1,4 +1,6 @@
-package pl.edu.wat.wcy.security;
+package pl.edu.wat.wcy.service.token;
+
+import pl.edu.wat.wcy.security.AuthenticatedUser;
 
 import java.util.Optional;
 

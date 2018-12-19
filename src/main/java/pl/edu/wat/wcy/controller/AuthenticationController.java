@@ -1,9 +1,12 @@
-package pl.edu.wat.wcy.security;
+package pl.edu.wat.wcy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.wat.wcy.dto.auth.LoginDto;
+import pl.edu.wat.wcy.dto.auth.TokenDto;
+import pl.edu.wat.wcy.service.auth.PasswordAuthenticator;
 
 @RestController
 @CrossOrigin
@@ -17,14 +20,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login")
-    TokenDto login(@RequestBody LoginDto request) {
+    public ResponseEntity<TokenDto> login(@RequestBody LoginDto request) {
         String token = authenticator.login(request.getUsername(), request.getPassword());
-        return new TokenDto(token);
+        return new ResponseEntity<>(new TokenDto(token), HttpStatus.CREATED);
     }
-
-    @ExceptionHandler(AuthenticationException.class)
-    public final ResponseEntity<Object> handleAuthenticationException() {
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-    }
-
 }

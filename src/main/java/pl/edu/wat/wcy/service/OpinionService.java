@@ -11,11 +11,10 @@ import pl.edu.wat.wcy.model.opinion.Rate;
 import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
 import pl.edu.wat.wcy.model.person.patient.Patient;
+import pl.edu.wat.wcy.model.person.user.User;
 import pl.edu.wat.wcy.model.visit.Visit;
-import pl.edu.wat.wcy.repository.DoctorRepository;
-import pl.edu.wat.wcy.repository.OpinionRepository;
-import pl.edu.wat.wcy.repository.PatientRepository;
-import pl.edu.wat.wcy.repository.VisitRepository;
+import pl.edu.wat.wcy.repository.*;
+import pl.edu.wat.wcy.security.AuthenticatedUser;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -26,15 +25,15 @@ import java.util.Optional;
 @Transactional
 public class OpinionService {
     private final OpinionRepository opinionRepository;
-    private final PatientRepository patientRepository;
+    private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
     private final VisitRepository visitRepository;
 
     @Autowired
-    public OpinionService(OpinionRepository opinionRepository, PatientRepository patientRepository,
+    public OpinionService(OpinionRepository opinionRepository, UserRepository userRepository,
                           DoctorRepository doctorRepository, VisitRepository visitRepository) {
         this.opinionRepository = opinionRepository;
-        this.patientRepository = patientRepository;
+        this.userRepository = userRepository;
         this.doctorRepository = doctorRepository;
         this.visitRepository = visitRepository;
     }
@@ -44,25 +43,26 @@ public class OpinionService {
         return opinionRepository.findAllByDoctorFullNameName(name);
     }
 
-    public OpinionResponseDto saveOpinion(OpinionRequestDto opinionRequestDto) {
-        Opinion opinion = createOpinion(opinionRequestDto);
+    public OpinionResponseDto saveOpinion(AuthenticatedUser user, OpinionRequestDto opinionRequestDto) {
+        Opinion opinion = createOpinion(user, opinionRequestDto);
         checkIfPatientVisitedDoctor(opinion.getPatient(), opinion.getDoctor());
         checkIfOpinionExist(opinion.getPatient(), opinion.getDoctor());
         opinionRepository.save(opinion);
         return createResponse(opinion);
     }
 
-    private Opinion createOpinion(OpinionRequestDto opinionRequestDto) {
-        Patient patient = findPatient(opinionRequestDto.getPatientId());
+    private Opinion createOpinion(AuthenticatedUser authenticatedUser, OpinionRequestDto opinionRequestDto) {
+        User user = findUser(authenticatedUser.getId());
+        Patient patient = (Patient) user.getPerson();
         Doctor doctor = findDoctor(opinionRequestDto.getDoctorId());
         String description = opinionRequestDto.getOpinion();
         Rate rate = opinionRequestDto.getRate();
         return new Opinion(patient, doctor, description, rate);
     }
 
-    private Patient findPatient(long patientId) {
-        return patientRepository.findById(patientId)
-                .orElseThrow(() -> new ResourceNotFoundException("patient", patientId));
+    private User findUser(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user", userId));
     }
 
     private Doctor findDoctor(long doctorId) {

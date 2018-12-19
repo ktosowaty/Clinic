@@ -21,7 +21,6 @@ public class AuthenticatedUser implements UserDetails {
         this.id = id;
         this.username = requireNonNull(username, "username");
         this.userType = UserType.valueOf(role);
-        //this.userType = requireNonNull(userType, "user type");
     }
 
     @Override
@@ -31,6 +30,10 @@ public class AuthenticatedUser implements UserDetails {
 
     public long getId() {
         return id;
+    }
+
+    public UserType getUserType() {
+        return userType;
     }
 
     @Override

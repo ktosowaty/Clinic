@@ -33,8 +33,8 @@ Content-Type: application/json
 {
   "patientId": 1,
   "doctorId": 5,
-  "visitStart": "2018-12-16T16:00:00",
-  "cost": 123
+  "visitStartStr": "2018-12-16T16:00:00",
+  "cost": 12345
 }
 
 ###
@@ -110,7 +110,6 @@ GET http://localhost:8080/medicine/Xyzal
 
 POST http://localhost:8080/medicine/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjVR0lEqLk0CMgsys1OzUnOzUotLUnOBopnFxUDR5JzMvMxkEDexRMnK0NTE1NDMzMjAXEcptaIAImBkamQGEijKz0kF6ghwDPF09QtRqgUAZCxwhGQAAAA.PNPB26qXuLeKzx3qfQnTbSCzPVfWVHwLyzG8JmOWDpo
 
 {
   "name": "Wpierdol Forte",
@@ -126,10 +125,69 @@ GET http://localhost:8080/disease/Pikejoza
 
 POST http://localhost:8080/disease/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNQ0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTUyMbc0MNJRSq0ogAgYG5sYgwSK8nNSgTpc_J1D_IOUagF7opyIWwAAAA.kz2SPiOO_zsZBeDc8Lndf6Xp4Js9paO1pW41ZzRQJqA
 
 {
-  "name": "Pikejoza",
+  "name": "Pikejoza Martwicza 2",
   "description": "Choroba bezobjawowa atakująca studentów WAT."
+}
+
+###
+
+#################################################################
+
+###
+
+POST http://localhost:8080/user/register
+Content-Type: application/json
+
+{
+  "username": "house",
+  "plainPassword": "housowicz",
+  "email": "house.house@gmail.com",
+  "userType": "DOCTOR"
+}
+
+###
+
+POST http://localhost:8080/public/auth/login
+Content-Type: application/json
+
+{
+  "username": "pikejemJestem",
+  "password": "heheszki"
+}
+
+###
+
+###
+
+POST http://localhost:8080/public/auth/login
+Content-Type: application/json
+
+{
+  "username": "house",
+  "password": "housowicz"
+}
+
+###
+
+POST http://localhost:8080/patient/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMrVQ0lEqLk0CMgsys1OzUnOzUotLUnOBopnFxUDR5JzMvMxkEDexRMnK0NTE1MjE1MDSUkcptaIAImBsbGgCEijKz0kF6ghwDPF09QtRqgUAuQVnymQAAAA.yaSc9k6NGy-F_lacDJBvjRNoIPz4KUVUSH6QodlzWZw
+
+{
+  "firstName": "Pikej",
+  "surname": "Pikejowicz",
+  "secondName": null,
+  "gender": "MALE",
+  "birthDateStr": "1997-03-15",
+  "peselStr": "97031509099",
+  "street": "pikejowa 666",
+  "zipCodeStr": "69-666",
+  "city": "Warszawa",
+  "provinceStr": "mazowieckie",
+  "phoneNumberStr": "987654321"
 }
 
 ###

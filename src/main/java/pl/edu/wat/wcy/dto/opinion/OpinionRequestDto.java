@@ -3,8 +3,6 @@ package pl.edu.wat.wcy.dto.opinion;
 import pl.edu.wat.wcy.model.opinion.Rate;
 
 public class OpinionRequestDto {
-    private long patientId;
-
     private long doctorId;
 
     private String opinion;
@@ -13,15 +11,10 @@ public class OpinionRequestDto {
 
     private OpinionRequestDto() {}
 
-    public OpinionRequestDto(long patientId, long doctorId, String opinion, Rate rate) {
-        this.patientId = patientId;
+    public OpinionRequestDto(long doctorId, String opinion, Rate rate) {
         this.doctorId = doctorId;
         this.opinion = opinion;
         this.rate = rate;
-    }
-
-    public long getPatientId() {
-        return patientId;
     }
 
     public long getDoctorId() {

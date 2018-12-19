@@ -1,11 +1,9 @@
-package pl.edu.wat.wcy.security;
+package pl.edu.wat.wcy.dto.auth;
 
 public class TokenDto {
-
     private String token;
 
-    public TokenDto() {
-    }
+    public TokenDto() {}
 
     public TokenDto(String token) {
         this.token = token;
@@ -13,9 +11,5 @@ public class TokenDto {
 
     public String getToken() {
         return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

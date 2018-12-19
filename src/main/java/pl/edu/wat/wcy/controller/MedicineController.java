@@ -3,9 +3,12 @@ package pl.edu.wat.wcy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.medicine.MedicineDto;
+import pl.edu.wat.wcy.exception.AuthenticationException;
+import pl.edu.wat.wcy.model.person.user.UserType;
+import pl.edu.wat.wcy.security.AuthenticatedUser;
 import pl.edu.wat.wcy.service.MedicineService;
 
 @RestController
@@ -19,16 +22,18 @@ public class MedicineController {
         this.medicineService = medicineService;
     }
 
-    @Secured("PATIENT")
     @GetMapping("/{name}")
-    public ResponseEntity<MedicineDto> getMedicine(@PathVariable String name) {
+    public ResponseEntity<MedicineDto> getMedicine(@AuthenticationPrincipal AuthenticatedUser user,
+                                                   @PathVariable String name) {
+        if (user.getUserType() != UserType.DOCTOR) throw new AuthenticationException(user.getUsername());
         MedicineDto medicineDto = medicineService.findMedicine(name);
         return new ResponseEntity<>(medicineDto, HttpStatus.OK);
     }
 
-    @Secured("PATIENT")
     @PostMapping("/create")
-    public ResponseEntity<MedicineDto> postMedicine(@RequestBody MedicineDto medicineDto) {
+    public ResponseEntity<MedicineDto> postMedicine(@AuthenticationPrincipal AuthenticatedUser user,
+                                                    @RequestBody MedicineDto medicineDto) {
+        if (user.getUserType() != UserType.DOCTOR) throw new AuthenticationException(user.getUsername());
         medicineService.saveMedicine(medicineDto);
         return new ResponseEntity<>(medicineDto, HttpStatus.CREATED);
     }

@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.security;
+package pl.edu.wat.wcy.exception;
 
 public class AuthenticationException extends RuntimeException {
     public AuthenticationException(String username) {

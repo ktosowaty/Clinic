@@ -11,10 +11,11 @@ import pl.edu.wat.wcy.model.disease.MedicineDisease;
 import pl.edu.wat.wcy.model.disease.PatientDisease;
 import pl.edu.wat.wcy.model.person.data.Pesel;
 import pl.edu.wat.wcy.model.person.patient.Patient;
+import pl.edu.wat.wcy.model.person.user.User;
 import pl.edu.wat.wcy.repository.*;
+import pl.edu.wat.wcy.security.AuthenticatedUser;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,21 +26,28 @@ public class HistoryService {
     private final PatientDiseaseRepository patientDiseaseRepository;
     private final MedicineRepository medicineRepository;
     private final MedicineDiseaseRepository medicineDiseaseRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public HistoryService(PatientRepository patientRepository, DiseaseRepository diseaseRepository,
                           PatientDiseaseRepository patientDiseaseRepository, MedicineRepository medicineRepository,
-                          MedicineDiseaseRepository medicineDiseaseRepository) {
+                          MedicineDiseaseRepository medicineDiseaseRepository, UserRepository userRepository) {
         this.patientRepository = patientRepository;
         this.diseaseRepository = diseaseRepository;
         this.patientDiseaseRepository = patientDiseaseRepository;
         this.medicineRepository = medicineRepository;
         this.medicineDiseaseRepository = medicineDiseaseRepository;
+        this.userRepository = userRepository;
     }
 
     public List<PatientDiseaseDto> generatePatientHistory(String peselStr) {
         Pesel pesel = new Pesel(peselStr);
-        return patientDiseaseRepository.findPatientDiseases(pesel);
+        return patientDiseaseRepository.findPatientDiseasesUsingPesel(pesel);
+    }
+
+    public List<PatientDiseaseDto> generateOwnHistory(AuthenticatedUser authenticatedUser) {
+        User user = findUser(authenticatedUser.getId());
+        return patientDiseaseRepository.findPatientDiseasesUsingId(user.getPerson().getId());
     }
 
     public void saveRecord(HistoryRecordDto historyRecordDto) {
@@ -50,6 +58,11 @@ public class HistoryService {
         MedicineDisease medicineDisease = createMedicineDisease(medicine, patientDisease, historyRecordDto);
         patientDiseaseRepository.save(patientDisease);
         medicineDiseaseRepository.save(medicineDisease);
+    }
+
+    private User findUser(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user", userId));
     }
 
     private Patient findPatient(long patientId) {

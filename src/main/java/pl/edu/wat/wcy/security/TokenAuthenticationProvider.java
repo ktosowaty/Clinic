@@ -6,6 +6,7 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import pl.edu.wat.wcy.service.token.TokenVerifier;
 
 import java.util.Optional;
 

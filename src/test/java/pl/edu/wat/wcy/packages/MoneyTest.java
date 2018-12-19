@@ -14,7 +14,7 @@ public class MoneyTest {
         Money money = new Money(value);
 
         // then
-        Assert.assertEquals(1321, money.getValue());
+        Assert.assertEquals(1321, money.getCost());
     }
 
     @Test
@@ -26,7 +26,7 @@ public class MoneyTest {
         Money money = new Money(0);
 
         // then
-        Assert.assertEquals(0, money.getValue());
+        Assert.assertEquals(0, money.getCost());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class MoneyTest {
         Money money = new Money(value);
 
         // then
-        Assert.assertEquals(-1321, money.getValue());
+        Assert.assertEquals(-1321, money.getCost());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -64,7 +64,7 @@ public class MoneyTest {
         money.add(toAdd);
 
         // then
-        Assert.assertEquals(173, money.getValue());
+        Assert.assertEquals(173, money.getCost());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class MoneyTest {
         money.add(toAdd);
 
         // then
-        Assert.assertEquals(73, money.getValue());
+        Assert.assertEquals(73, money.getCost());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class MoneyTest {
         money.add(toAdd);
 
         // then
-        Assert.assertEquals(123, money.getValue());
+        Assert.assertEquals(123, money.getCost());
     }
 
     @Test

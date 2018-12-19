@@ -29,4 +29,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         logger.error("Runtime exception happened: " + ex.getMessage(), ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
+        logger.error("Authentication exception happened: " + ex.getMessage(), ex);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
 }

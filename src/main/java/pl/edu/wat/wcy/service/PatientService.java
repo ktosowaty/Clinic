@@ -12,7 +12,10 @@ import pl.edu.wat.wcy.model.person.data.address.ZipCode;
 import pl.edu.wat.wcy.model.person.data.name.FullName;
 import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.patient.Patient;
+import pl.edu.wat.wcy.model.person.user.User;
 import pl.edu.wat.wcy.repository.PatientRepository;
+import pl.edu.wat.wcy.repository.UserRepository;
+import pl.edu.wat.wcy.security.AuthenticatedUser;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -22,10 +25,12 @@ import java.util.Optional;
 @Transactional
 public class PatientService {
     private final PatientRepository patientRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, UserRepository userRepository) {
         this.patientRepository = patientRepository;
+        this.userRepository = userRepository;
     }
 
     public PatientProjection findPatientByPesel(String peselStr) {
@@ -40,7 +45,20 @@ public class PatientService {
                 .orElseThrow(() -> new ResourceNotFoundException("patient", name));
     }
 
-    public void savePatient(PatientDto patientDto) {
+    public void savePatientBySecretary(PatientDto patientDto) {
+        Patient patient = createPatient(patientDto);
+        patientRepository.save(patient);
+    }
+
+    public void savePatientByHimself(AuthenticatedUser authenticatedUser, PatientDto patientDto) {
+        Patient patient = createPatient(patientDto);
+        patientRepository.save(patient);
+        User user = findUser(authenticatedUser.getId());
+        user.setPerson(patient);
+        userRepository.save(user);
+    }
+
+    private Patient createPatient(PatientDto patientDto) {
         FullName fullName = createFullName(patientDto);
         Pesel pesel = new Pesel(patientDto.getPeselStr());
         checkIfPatientExist(pesel);
@@ -48,8 +66,7 @@ public class PatientService {
         LocalDate birthDate = LocalDate.parse(patientDto.getBirthDateStr());
         Address address = createAddress(patientDto);
         PhoneNumber phoneNumber = new PhoneNumber(patientDto.getPhoneNumberStr());
-        Patient patient = new Patient(fullName, pesel, gender, birthDate, address, phoneNumber);
-        patientRepository.save(patient);
+        return new Patient(fullName, pesel, gender, birthDate, address, phoneNumber);
     }
 
     private FullName createFullName(PatientDto patientDto) {
@@ -81,5 +98,10 @@ public class PatientService {
     private Province getProvince(PatientDto patientDto) {
         String provinceStr = patientDto.getProvinceStr().trim().toLowerCase();
         return Province.fromString(provinceStr);
+    }
+
+    private User findUser(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user", userId));
     }
 }

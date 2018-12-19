@@ -96,12 +96,6 @@ public abstract class Person {
         return phoneNumber;
     }
 
-    public void setUser(User user) {
-        requireNonNull(user, "user");
-        if (this.user != null) throw new IllegalArgumentException("This person already has an user.");
-        this.user = user;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

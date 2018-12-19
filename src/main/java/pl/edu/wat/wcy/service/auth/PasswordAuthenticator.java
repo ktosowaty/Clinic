@@ -1,4 +1,6 @@
-package pl.edu.wat.wcy.security;
+package pl.edu.wat.wcy.service.auth;
+
+import pl.edu.wat.wcy.exception.AuthenticationException;
 
 public interface PasswordAuthenticator {
     String login(String username, String password) throws AuthenticationException;

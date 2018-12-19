@@ -3,7 +3,8 @@ package pl.edu.wat.wcy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.dto.visit.AvailabilityDto;
-import pl.edu.wat.wcy.dto.visit.VisitRequestDto;
+import pl.edu.wat.wcy.dto.visit.PatientVisitRequestDto;
+import pl.edu.wat.wcy.dto.visit.SecretaryVisitRequestDto;
 import pl.edu.wat.wcy.dto.visit.VisitResponseDto;
 import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.benefit.BenefitPackage;
@@ -11,6 +12,7 @@ import pl.edu.wat.wcy.model.benefit.Purchase;
 import pl.edu.wat.wcy.model.benefit.type.AllInOnePackage;
 import pl.edu.wat.wcy.model.benefit.type.FreeDoctorPackage;
 import pl.edu.wat.wcy.model.benefit.type.FreeSpecialistPackage;
+import pl.edu.wat.wcy.model.person.user.User;
 import pl.edu.wat.wcy.model.visit.Visit;
 import pl.edu.wat.wcy.model.benefit.Money;
 import pl.edu.wat.wcy.model.person.doctor.Availability;
@@ -18,6 +20,7 @@ import pl.edu.wat.wcy.model.person.doctor.Doctor;
 import pl.edu.wat.wcy.model.person.doctor.Specialization;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 import pl.edu.wat.wcy.repository.*;
+import pl.edu.wat.wcy.security.AuthenticatedUser;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -35,16 +38,18 @@ public class VisitService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
     private final PurchaseRepository purchaseRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public VisitService(AvailabilityRepository availabilityRepository, VisitRepository visitRepository,
                         DoctorRepository doctorRepository, PatientRepository patientRepository,
-                        PurchaseRepository purchaseRepository) {
+                        PurchaseRepository purchaseRepository, UserRepository userRepository) {
         this.availabilityRepository = availabilityRepository;
         this.visitRepository = visitRepository;
         this.doctorRepository = doctorRepository;
         this.patientRepository = patientRepository;
         this.purchaseRepository = purchaseRepository;
+        this.userRepository = userRepository;
     }
 
     public List<AvailabilityDto> findVisitDatesForSpecialization(Specialization specialization) {
@@ -55,10 +60,21 @@ public class VisitService {
         return availabilityRepository.findAvailabilitiesForDoctor(firstName, surname);
     }
 
-    public VisitResponseDto reserveVisit(VisitRequestDto visitRequestDto) {
-        Patient patient = findPatient(visitRequestDto.getPatientId());
-        Doctor doctor = findDoctor(visitRequestDto.getDoctorId());
-        LocalDateTime visitStart = verifyVisitStart(visitRequestDto.getVisitStart(), doctor);
+    public VisitResponseDto reserveVisitBySecretary(SecretaryVisitRequestDto request) {
+        Patient patient = findPatient(request.getPatientId());
+        Doctor doctor = findDoctor(request.getDoctorId());
+        LocalDateTime visitStart = verifyVisitStart(request.getVisitStartStr(), doctor);
+        Money cost = calculateCost(doctor, patient);
+        Visit visit = new Visit(patient, doctor, visitStart, cost);
+        visitRepository.save(visit);
+        return new VisitResponseDto(patient.getFullName().getName(), doctor.getFullName().getName(), visitStart, cost);
+    }
+
+    public VisitResponseDto reserveVisitByPatient(AuthenticatedUser authenticatedUser, PatientVisitRequestDto request) {
+        User user = findUser(authenticatedUser.getId());
+        Patient patient = (Patient) user.getPerson();
+        Doctor doctor = findDoctor(request.getDoctorId());
+        LocalDateTime visitStart = verifyVisitStart(request.getVisitStartStr(), doctor);
         Money cost = calculateCost(doctor, patient);
         Visit visit = new Visit(patient, doctor, visitStart, cost);
         visitRepository.save(visit);
@@ -75,8 +91,9 @@ public class VisitService {
                 .orElseThrow(() -> new ResourceNotFoundException("doctor", doctorId));
     }
 
-    private LocalDateTime verifyVisitStart(LocalDateTime visitStart, Doctor doctor) {
-        requireNonNull(visitStart, "visit start");
+    private LocalDateTime verifyVisitStart(String visitStartStr, Doctor doctor) {
+        requireNonNull(visitStartStr, "visit start");
+        LocalDateTime visitStart = LocalDateTime.parse(visitStartStr);
         checkAvailability(visitStart, doctor);
         checkNotReserved(visitStart, doctor);
         return visitStart;
@@ -115,5 +132,10 @@ public class VisitService {
 
     private boolean isSameDoctor(Doctor doctor, Purchase purchase) {
         return ((FreeDoctorPackage) purchase.getBenefitPackage()).getDoctor().equals(doctor);
+    }
+
+    private User findUser(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("user", userId));
     }
 }

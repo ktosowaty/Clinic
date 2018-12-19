@@ -8,29 +8,29 @@ import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 public class Money {
     @Column
-    private long value;
+    private long cost;
 
     private Money() {}
 
-    public Money(long value) {
-        this.value = value;
+    public Money(long cost) {
+        this.cost = cost;
     }
 
     public void add(Money money) {
         requireNonNull(money, "money");
-        value += money.getValue();
+        cost += money.getCost();
     }
 
     private long getTotalPart() {
-        return Math.abs(value/100);
+        return Math.abs(cost /100);
     }
 
     private long getFractionalPart() {
-        return Math.abs(value%100);
+        return Math.abs(cost %100);
     }
 
-    public long getValue() {
-        return value;
+    public long getCost() {
+        return cost;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Money {
         String str;
         if (getFractionalPart() < 10) str = getTotalPart() + ".0" + getFractionalPart();
         else str = getTotalPart() + "." + getFractionalPart();
-        if (value < 0) str = "-" + str;
+        if (cost < 0) str = "-" + str;
         return str;
     }
 
@@ -47,11 +47,11 @@ public class Money {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Money money = (Money) o;
-        return value == money.value;
+        return cost == money.cost;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(cost);
     }
 }

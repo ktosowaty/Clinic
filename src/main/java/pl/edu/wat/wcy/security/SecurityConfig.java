@@ -30,21 +30,12 @@ import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
-            new AntPathRequestMatcher("/public/auth/**"),
-            new AntPathRequestMatcher("/user/register"),
-            new AntPathRequestMatcher("/patient/register"), // TODO: 17.12.2018 pacjent i sekretara
-            new AntPathRequestMatcher("/disease/**"), // TODO: 17.12.2018 tylko lekarz
-            new AntPathRequestMatcher("/history/patient/**"), // TODO: 17.12.2018 lekarz i pacjent
-            new AntPathRequestMatcher("/history/create-record"), // TODO: 17.12.2018 tylko lekarz
-            //new AntPathRequestMatcher("/medicine/**"), // TODO: 17.12.2018 tylko lekarz
-            new AntPathRequestMatcher("/opinion/**"), // TODO: 17.12.2018 tylko pacjent
-            new AntPathRequestMatcher("patient/pesel/**"), // TODO: 17.12.2018 pacjent, lekarz i secretara
-            new AntPathRequestMatcher("patient/name/**"), // TODO: 17.12.2018 pacjent, lekarz i secretara
-            new AntPathRequestMatcher("/availability/**") // TODO: 17.12.2018 pacjent i sekretara
+            new AntPathRequestMatcher("/public/auth/login"),
+            new AntPathRequestMatcher("/user/register")
     );
 
     private static final RequestMatcher PROTECTED_URLS = new NegatedRequestMatcher(PUBLIC_URLS);

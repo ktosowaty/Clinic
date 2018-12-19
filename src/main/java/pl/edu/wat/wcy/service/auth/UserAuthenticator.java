@@ -1,10 +1,12 @@
-package pl.edu.wat.wcy.security;
+package pl.edu.wat.wcy.service.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.wat.wcy.exception.AuthenticationException;
 import pl.edu.wat.wcy.model.person.user.User;
 import pl.edu.wat.wcy.model.person.user.Username;
 import pl.edu.wat.wcy.repository.UserRepository;
+import pl.edu.wat.wcy.service.token.TokenGenerator;
 
 import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
@@ -23,13 +25,11 @@ public class UserAuthenticator implements PasswordAuthenticator {
     public String login(String username, String password) throws AuthenticationException {
         User user = findUser(username);
         if (user.getPassword().matches(password)) return newToken(user);
-
         throw new AuthenticationException(username);
     }
 
     private User findUser(String username) {
-        return userRepository
-                .findByUsername(new Username(username))
+        return userRepository.findByUsername(new Username(username))
                 .orElseThrow(() -> new AuthenticationException(username));
     }
 
@@ -44,5 +44,4 @@ public class UserAuthenticator implements PasswordAuthenticator {
     public void logout(String token) throws AuthenticationException {
         // todo: revoke 'self-containing' tokens
     }
-
 }
