@@ -1,6 +1,6 @@
 package pl.edu.wat.wcy.model.person;
 
-import pl.edu.wat.wcy.model.person.account.User;
+import pl.edu.wat.wcy.model.person.user.User;
 import pl.edu.wat.wcy.model.person.data.*;
 import pl.edu.wat.wcy.model.person.data.address.Address;
 import pl.edu.wat.wcy.model.person.data.name.FullName;
@@ -98,7 +98,7 @@ public abstract class Person {
 
     public void setUser(User user) {
         requireNonNull(user, "user");
-        if (this.user != null) throw new IllegalArgumentException("This person already has an account.");
+        if (this.user != null) throw new IllegalArgumentException("This person already has an user.");
         this.user = user;
     }
 

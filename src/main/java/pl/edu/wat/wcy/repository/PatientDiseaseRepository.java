@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface PatientDiseaseRepository extends JpaRepository<PatientDisease, Long> {
-    @Query("select new pl.edu.wat.wcy.dto.PatientDiseaseDto (p.fullName.name.firstName, p.fullName.name.surname, " +
+    @Query("select new pl.edu.wat.wcy.dto.history.PatientDiseaseDto (p.fullName.name.firstName, p.fullName.name.surname, " +
             "p.pesel, d.name, pd.diagnosis, pd.diagnosisDate, m.name, md.dosage) " +
             "from PatientDisease as pd " +
             "left join Patient as p on p.id = pd.patient.id " +

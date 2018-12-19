@@ -2,9 +2,9 @@ package pl.edu.wat.wcy.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.edu.wat.wcy.model.person.account.User;
-import pl.edu.wat.wcy.model.person.account.Email;
-import pl.edu.wat.wcy.model.person.account.Username;
+import pl.edu.wat.wcy.model.person.user.User;
+import pl.edu.wat.wcy.model.person.user.Email;
+import pl.edu.wat.wcy.model.person.user.Username;
 
 import java.util.Optional;
 

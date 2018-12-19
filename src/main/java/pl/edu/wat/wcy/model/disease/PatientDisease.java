@@ -31,11 +31,11 @@ public class PatientDisease {
 
     private PatientDisease() {}
 
-    public PatientDisease(Patient patient, Disease disease, String diagnosis, LocalDate diagnosisDate) {
+    public PatientDisease(Patient patient, Disease disease, String diagnosis) {
         this.patient = requireNonNull(patient, "patient");
         this.disease = requireNonNull(disease, "disease");
         this.diagnosis = diagnosis;
-        this.diagnosisDate = requireNonNull(diagnosisDate, "diagnosis, date");
+        this.diagnosisDate = LocalDate.now();
     }
 
     public long getId() {

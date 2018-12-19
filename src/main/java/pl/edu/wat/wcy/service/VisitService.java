@@ -19,6 +19,7 @@ import pl.edu.wat.wcy.model.person.doctor.Specialization;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 import pl.edu.wat.wcy.repository.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.Optional;
 import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
 @Service
+@Transactional
 public class VisitService {
     private final AvailabilityRepository availabilityRepository;
     private final VisitRepository visitRepository;

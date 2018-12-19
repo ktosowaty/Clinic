@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.disease.DiseaseDto;
-import pl.edu.wat.wcy.dto.disease.DiseaseProjection;
 import pl.edu.wat.wcy.service.DiseaseService;
 
 @RestController
@@ -20,9 +19,9 @@ public class DiseaseController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<DiseaseProjection> getDisease(@PathVariable String name) {
-        DiseaseProjection diseaseProjection = diseaseService.findDisease(name);
-        return new ResponseEntity<>(diseaseProjection, HttpStatus.OK);
+    public ResponseEntity<DiseaseDto> getDisease(@PathVariable String name) {
+        DiseaseDto diseaseDto = diseaseService.findDisease(name);
+        return new ResponseEntity<>(diseaseDto, HttpStatus.OK);
     }
 
     @PostMapping("/create")

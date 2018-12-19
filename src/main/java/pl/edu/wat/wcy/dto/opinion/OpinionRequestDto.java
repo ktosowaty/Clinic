@@ -2,25 +2,20 @@ package pl.edu.wat.wcy.dto.opinion;
 
 import pl.edu.wat.wcy.model.opinion.Rate;
 
-import java.time.LocalDate;
-
-public class OpinionDto {
+public class OpinionRequestDto {
     private long patientId;
 
     private long doctorId;
-
-    private LocalDate filingDate;
 
     private String opinion;
 
     private Rate rate;
 
-    private OpinionDto() {}
+    private OpinionRequestDto() {}
 
-    public OpinionDto(long patientId, long doctorId, LocalDate filingDate, String opinion, Rate rate) {
+    public OpinionRequestDto(long patientId, long doctorId, String opinion, Rate rate) {
         this.patientId = patientId;
         this.doctorId = doctorId;
-        this.filingDate = filingDate;
         this.opinion = opinion;
         this.rate = rate;
     }
@@ -31,10 +26,6 @@ public class OpinionDto {
 
     public long getDoctorId() {
         return doctorId;
-    }
-
-    public LocalDate getFilingDate() {
-        return filingDate;
     }
 
     public String getOpinion() {

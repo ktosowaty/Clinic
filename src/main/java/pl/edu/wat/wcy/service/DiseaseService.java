@@ -3,14 +3,15 @@ package pl.edu.wat.wcy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wat.wcy.dto.disease.DiseaseDto;
-import pl.edu.wat.wcy.dto.disease.DiseaseProjection;
 import pl.edu.wat.wcy.exception.ResourceNotFoundException;
 import pl.edu.wat.wcy.model.disease.Disease;
 import pl.edu.wat.wcy.repository.DiseaseRepository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DiseaseService {
     private final DiseaseRepository diseaseRepository;
 
@@ -19,7 +20,7 @@ public class DiseaseService {
         this.diseaseRepository = diseaseRepository;
     }
 
-    public DiseaseProjection findDisease(String name) {
+    public DiseaseDto findDisease(String name) {
         return diseaseRepository.findProjectedByName(name)
                 .orElseThrow(() -> new ResourceNotFoundException("disease", name));
     }

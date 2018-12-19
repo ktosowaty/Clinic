@@ -13,10 +13,12 @@ import pl.edu.wat.wcy.repository.BenefitPackageRepository;
 import pl.edu.wat.wcy.repository.PatientRepository;
 import pl.edu.wat.wcy.repository.PurchaseRepository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Transactional
 public class BenefitPackageService {
     private final BenefitPackageRepository benefitPackageRepository;
     private final PatientRepository patientRepository;
@@ -37,12 +39,10 @@ public class BenefitPackageService {
     public PurchaseResponseDto purchasePackage(PurchaseRequestDto purchaseRequestDto) {
         Patient patient = findPatient(purchaseRequestDto.getPatientId());
         BenefitPackage benefitPackage = findPackage(purchaseRequestDto.getBenefitPackageId());
-        LocalDate fromDate = LocalDate.now();
-        LocalDate toDate = fromDate.plusMonths(12);
-        Purchase purchase = new Purchase(patient, benefitPackage, fromDate, toDate);
+        Purchase purchase = new Purchase(patient, benefitPackage);
         purchaseRepository.save(purchase);
-        return new PurchaseResponseDto(patient.getFullName().getName(),
-                benefitPackage.getName(), fromDate, toDate, benefitPackage.getYearCost());
+        return new PurchaseResponseDto(patient.getFullName().getName(), benefitPackage.getName(),
+                purchase.getFromDate(), purchase.getToDate(), benefitPackage.getYearCost());
     }
 
     private Patient findPatient(long patientId) {

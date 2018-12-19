@@ -2,8 +2,8 @@ package pl.edu.wat.wcy.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wat.wcy.model.person.account.User;
-import pl.edu.wat.wcy.model.person.account.Username;
+import pl.edu.wat.wcy.model.person.user.User;
+import pl.edu.wat.wcy.model.person.user.Username;
 import pl.edu.wat.wcy.repository.UserRepository;
 
 import static pl.edu.wat.wcy.util.Validator.requireNonNull;
@@ -36,7 +36,8 @@ public class UserAuthenticator implements PasswordAuthenticator {
     private String newToken(User user) {
         long id = user.getId();
         String username = user.getUsername().getUsername();
-        return tokenGenerator.expiring(id, username);
+        String userType = user.getUserType().name();
+        return tokenGenerator.expiring(id, username, userType);
     }
 
     @Override

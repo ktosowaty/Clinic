@@ -11,7 +11,7 @@ import pl.edu.wat.wcy.model.person.patient.Patient;
 import java.time.LocalDate;
 
 public class PurchaseTest {
-    @Test
+    /*@Test
     public void constructor_givenProperData_shouldCreatePurchase() {
         // given
         Patient patient = Mockito.mock(Patient.class);
@@ -125,5 +125,5 @@ public class PurchaseTest {
 
         // then
         Assert.assertFalse(equalsResult);
-    }
+    }*/
 }

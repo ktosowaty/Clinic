@@ -36,10 +36,10 @@ public class Opinion {
 
     private Opinion() {}
 
-    public Opinion(Patient patient, Doctor doctor, LocalDate filingDate, String opinion, Rate rate) {
+    public Opinion(Patient patient, Doctor doctor, String opinion, Rate rate) {
         this.patient = requireNonNull(patient, "patient");
         this.doctor = requireNonNull(doctor, "doctor");
-        this.filingDate = requireNonNull(filingDate, "filing date");
+        this.filingDate = LocalDate.now();
         this.opinion = opinion;
         this.rate = requireNonNull(rate, "rate");
     }

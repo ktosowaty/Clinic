@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wat.wcy.dto.user.UserDto;
+import pl.edu.wat.wcy.dto.user.UserRequestDto;
+import pl.edu.wat.wcy.dto.user.UserResponseDto;
 import pl.edu.wat.wcy.service.UserService;
 
 @RestController
@@ -19,14 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> postUser(@RequestBody UserDto userDto) {
-        userService.saveUser(userDto);
-        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+    public ResponseEntity<UserResponseDto> postUser(@RequestBody UserRequestDto request) {
+        UserResponseDto response = userService.saveUser(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
-//    @PostMapping("/sign-in")
-//    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
-//        String token = userService.login(loginDto);
-//        return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
-//    }
 }

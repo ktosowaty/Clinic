@@ -3,9 +3,9 @@ package pl.edu.wat.wcy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.medicine.MedicineDto;
-import pl.edu.wat.wcy.dto.medicine.MedicineProjection;
 import pl.edu.wat.wcy.service.MedicineService;
 
 @RestController
@@ -19,12 +19,14 @@ public class MedicineController {
         this.medicineService = medicineService;
     }
 
+    @Secured("PATIENT")
     @GetMapping("/{name}")
-    public ResponseEntity<MedicineProjection> getMedicine(@PathVariable String name) {
-        MedicineProjection medicineProjection = medicineService.findMedicine(name);
-        return new ResponseEntity<>(medicineProjection, HttpStatus.OK);
+    public ResponseEntity<MedicineDto> getMedicine(@PathVariable String name) {
+        MedicineDto medicineDto = medicineService.findMedicine(name);
+        return new ResponseEntity<>(medicineDto, HttpStatus.OK);
     }
 
+    @Secured("PATIENT")
     @PostMapping("/create")
     public ResponseEntity<MedicineDto> postMedicine(@RequestBody MedicineDto medicineDto) {
         medicineService.saveMedicine(medicineDto);

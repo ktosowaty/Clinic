@@ -43,12 +43,12 @@ public class JWTTokens implements TokenVerifier, TokenGenerator {
     }
 
     @Override
-    public String expiring(long userId, String username) {
+    public String expiring(long userId, String username, String role) {
         requireNonNull(username, "username");
-        return newToken(String.valueOf(userId), username, expirationSec);
+        return newToken(String.valueOf(userId), username, role, expirationSec);
     }
 
-    private String newToken(String id, String subject, final int expiresInSec) {
+    private String newToken(String id, String subject, String role, final int expiresInSec) {
         final Date now = clock.now();
         final Claims claims = Jwts
                 .claims()
@@ -57,6 +57,7 @@ public class JWTTokens implements TokenVerifier, TokenGenerator {
                 .setIssuer(issuer)
                 .setIssuedAt(now)
                 .setExpiration(calculateExpiration(now, expiresInSec));
+        claims.put("role", role);
         return Jwts
                 .builder()
                 .setClaims(claims)
@@ -92,6 +93,7 @@ public class JWTTokens implements TokenVerifier, TokenGenerator {
     private AuthenticatedUser toUser(Claims claims) {
         long id = Long.parseLong(claims.getId());
         String username = claims.getSubject();
-        return new AuthenticatedUser(id, username);
+        String role = (String) claims.get("role");
+        return new AuthenticatedUser(id, username, role);
     }
 }

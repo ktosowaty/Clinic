@@ -2,73 +2,47 @@ package pl.edu.wat.wcy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wat.wcy.dto.user.UserDto;
-import pl.edu.wat.wcy.exception.ResourceNotFoundException;
-import pl.edu.wat.wcy.model.person.account.*;
-import pl.edu.wat.wcy.model.person.patient.Patient;
+import pl.edu.wat.wcy.dto.user.UserRequestDto;
+import pl.edu.wat.wcy.dto.user.UserResponseDto;
+import pl.edu.wat.wcy.model.person.user.*;
 import pl.edu.wat.wcy.repository.UserRepository;
-import pl.edu.wat.wcy.repository.PatientRepository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
-    private final PatientRepository patientRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, PatientRepository patientRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.patientRepository = patientRepository;
     }
 
-    public void saveUser(UserDto userDto) {
-        Username username = getUsername(userDto);
-        Password password = new Password(userDto.getPlainPassword());
-        Email email = getEmail(userDto);
-        UserType userType = userDto.getUserType();
-        //Patient patient = findPatient(userDto.getPersonId());
+    public UserResponseDto saveUser(UserRequestDto userRequestDto) {
+        Username username = getUsername(userRequestDto);
+        Password password = new Password(userRequestDto.getPlainPassword());
+        Email email = getEmail(userRequestDto);
+        UserType userType = userRequestDto.getUserType();
         User user = new User(username, password, email, userType);
         userRepository.save(user);
-        //patient.setUser(user);
-        //patientRepository.save(patient);
+        return new UserResponseDto(username, email, userType);
     }
 
-//    public String login(LoginDto loginDto) {
-//        String usernameStr = loginDto.getUsername();
-//        String plainPassword = loginDto.getPassword();
-//        checkCredentials(usernameStr, plainPassword);
-//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(usernameStr, plainPassword);
-//        Authentication authentication = authenticationManager.authenticate(token);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return tokenProvider.generateToken(authentication);
-//    }
-
-    private Username getUsername(UserDto userDto) {
-        Username username = new Username(userDto.getUsername());
-        Optional<User> existingAccount = userRepository.findByUsername(username);
-        if (existingAccount.isPresent())
+    private Username getUsername(UserRequestDto userRequestDto) {
+        Username username = new Username(userRequestDto.getUsername());
+        Optional<User> existingUser = userRepository.findByUsername(username);
+        if (existingUser.isPresent())
             throw new IllegalArgumentException("User with given username '" + username + "' already exists.");
         return username;
     }
 
-    private Email getEmail(UserDto userDto) {
-        Email email = new Email(userDto.getEmail());
-        Optional<User> existingAccount = userRepository.findByEmail(email);
-        if (existingAccount.isPresent())
+    private Email getEmail(UserRequestDto userRequestDto) {
+        Email email = new Email(userRequestDto.getEmail());
+        Optional<User> existingUser = userRepository.findByEmail(email);
+        if (existingUser.isPresent())
             throw new IllegalArgumentException("User with given email '" + email + "' already exists.");
         return email;
-    }
-
-    private Patient findPatient(long patientId) {
-        return patientRepository.findById(patientId)
-                .orElseThrow(() -> new ResourceNotFoundException("patient",  patientId));
-    }
-
-    private void checkCredentials(String usernameStr, String plainPassword) {
-        Username username = new Username(usernameStr);
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("user", username));
-        if (!user.getPassword().matches(plainPassword)) throw new IllegalArgumentException("Wrong password.");
     }
 }

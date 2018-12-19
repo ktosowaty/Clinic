@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.model.person.account;
+package pl.edu.wat.wcy.model.person.user;
 
 import org.mindrot.jbcrypt.BCrypt;
 

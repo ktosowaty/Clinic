@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wat.wcy.dto.opinion.OpinionDto;
+import pl.edu.wat.wcy.dto.opinion.OpinionRequestDto;
 import pl.edu.wat.wcy.dto.opinion.OpinionProjection;
+import pl.edu.wat.wcy.dto.opinion.OpinionResponseDto;
 import pl.edu.wat.wcy.service.OpinionService;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class OpinionController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<OpinionDto> postOpinion(@RequestBody OpinionDto opinionDto) {
-        opinionService.saveOpinion(opinionDto);
-        return new ResponseEntity<>(opinionDto, HttpStatus.CREATED);
+    public ResponseEntity<OpinionResponseDto> postOpinion(@RequestBody OpinionRequestDto request) {
+        OpinionResponseDto response = opinionService.saveOpinion(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

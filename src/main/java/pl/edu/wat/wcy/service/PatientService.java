@@ -14,10 +14,12 @@ import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 import pl.edu.wat.wcy.repository.PatientRepository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class PatientService {
     private final PatientRepository patientRepository;
 
@@ -51,11 +53,15 @@ public class PatientService {
     }
 
     private FullName createFullName(PatientDto patientDto) {
-        String firstName = patientDto.getFirstName();
-        String surname = patientDto.getSurname();
-        Name name = new Name(firstName, surname);
+        Name name = createName(patientDto);
         String secondName = patientDto.getSecondName();
         return new FullName(name, secondName);
+    }
+
+    private Name createName(PatientDto patientDto) {
+        String firstName = patientDto.getFirstName();
+        String surname = patientDto.getSurname();
+        return new Name(firstName, surname);
     }
 
     private void checkIfPatientExist(Pesel pesel) {

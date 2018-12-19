@@ -1,4 +1,4 @@
-package pl.edu.wat.wcy.model.person.account;
+package pl.edu.wat.wcy.model.person.user;
 
 import javax.persistence.Column;
 import java.util.Objects;

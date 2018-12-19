@@ -13,10 +13,12 @@ import pl.edu.wat.wcy.model.person.data.Pesel;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 import pl.edu.wat.wcy.repository.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Transactional
 public class HistoryService {
     private final PatientRepository patientRepository;
     private final DiseaseRepository diseaseRepository;
@@ -62,8 +64,7 @@ public class HistoryService {
 
     private PatientDisease createPatientDisease(Patient patient, Disease disease, HistoryRecordDto historyRecordDto) {
         String diagnosis = historyRecordDto.getDiagnosis();
-        LocalDate diagnosisDate = LocalDate.parse(historyRecordDto.getDiagnosisDateStr());
-        return new PatientDisease(patient, disease, diagnosis, diagnosisDate);
+        return new PatientDisease(patient, disease, diagnosis);
     }
 
     private Medicine findMedicine(String name) {

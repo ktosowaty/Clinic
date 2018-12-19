@@ -1,21 +1,46 @@
 package pl.edu.wat.wcy.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 
-//@Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
+    private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
+            new AntPathRequestMatcher("/public/auth/**"),
             new AntPathRequestMatcher("/user/register"),
             new AntPathRequestMatcher("/patient/register"), // TODO: 17.12.2018 pacjent i sekretara
             new AntPathRequestMatcher("/disease/**"), // TODO: 17.12.2018 tylko lekarz
             new AntPathRequestMatcher("/history/patient/**"), // TODO: 17.12.2018 lekarz i pacjent
             new AntPathRequestMatcher("/history/create-record"), // TODO: 17.12.2018 tylko lekarz
-            new AntPathRequestMatcher("/medicine/**"), // TODO: 17.12.2018 tylko lekarz
+            //new AntPathRequestMatcher("/medicine/**"), // TODO: 17.12.2018 tylko lekarz
             new AntPathRequestMatcher("/opinion/**"), // TODO: 17.12.2018 tylko pacjent
             new AntPathRequestMatcher("patient/pesel/**"), // TODO: 17.12.2018 pacjent, lekarz i secretara
             new AntPathRequestMatcher("patient/name/**"), // TODO: 17.12.2018 pacjent, lekarz i secretara
@@ -103,5 +128,5 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }*/
+    }
 }

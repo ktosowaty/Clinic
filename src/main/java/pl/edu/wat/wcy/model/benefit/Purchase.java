@@ -31,11 +31,11 @@ public class Purchase {
 
     private Purchase() {}
 
-    public Purchase(Patient patient, BenefitPackage benefitPackage, LocalDate fromDate, LocalDate toDate) {
+    public Purchase(Patient patient, BenefitPackage benefitPackage) {
         this.patient = requireNonNull(patient, "patient");
         this.benefitPackage = requireNonNull(benefitPackage, "benefitPackage");
-        this.fromDate = requireNonNull(fromDate, "'from' date");
-        this.toDate = requireNonNull(toDate, "'to' date");
+        this.fromDate = LocalDate.now();
+        this.toDate = LocalDate.now().plusMonths(12);
     }
 
     public long getId() {

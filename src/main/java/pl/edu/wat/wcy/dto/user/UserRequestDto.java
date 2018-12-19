@@ -1,8 +1,8 @@
 package pl.edu.wat.wcy.dto.user;
 
-import pl.edu.wat.wcy.model.person.account.UserType;
+import pl.edu.wat.wcy.model.person.user.UserType;
 
-public class UserDto {
+public class UserRequestDto {
     private String username;
 
     private String plainPassword;
@@ -11,9 +11,9 @@ public class UserDto {
 
     private UserType userType;
 
-    private UserDto() {}
+    private UserRequestDto() {}
 
-    public UserDto(String username, String plainPassword, String email, UserType userType) {
+    public UserRequestDto(String username, String plainPassword, String email, UserType userType) {
         this.username = username;
         this.plainPassword = plainPassword;
         this.email = email;

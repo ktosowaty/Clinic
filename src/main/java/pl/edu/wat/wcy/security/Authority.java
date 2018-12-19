@@ -1,7 +1,7 @@
 package pl.edu.wat.wcy.security;
 
 import org.springframework.security.core.GrantedAuthority;
-import pl.edu.wat.wcy.model.person.account.UserType;
+import pl.edu.wat.wcy.model.person.user.UserType;
 
 import static pl.edu.wat.wcy.util.Validator.requireNonNull;
 

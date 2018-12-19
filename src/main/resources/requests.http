@@ -12,7 +12,7 @@ Content-Type: application/json
 {
   "patientId": 1,
   "doctorId": 4,
-  "filingDate":"2018-04-15",
+  "filingDateStr":"2018-04-15",
   "opinion": "Najs",
   "rate":"GOOD"
 }
@@ -110,11 +110,12 @@ GET http://localhost:8080/medicine/Xyzal
 
 POST http://localhost:8080/medicine/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjVR0lEqLk0CMgsys1OzUnOzUotLUnOBopnFxUDR5JzMvMxkEDexRMnK0NTE1NDMzMjAXEcptaIAImBkamQGEijKz0kF6ghwDPF09QtRqgUAZCxwhGQAAAA.PNPB26qXuLeKzx3qfQnTbSCzPVfWVHwLyzG8JmOWDpo
 
 {
-  "name": "Xyzal",
-  "description": "Lek przeciwalergiczny.",
-  "sideEffects": "Senność, otępienie."
+  "name": "Wpierdol Forte",
+  "description": "Lek bólowy, gorączkowy, zapalny.",
+  "sideEffects": "Okazjonalne krwawienie z nosa."
 }
 
 ###

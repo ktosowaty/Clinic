@@ -1,7 +1,9 @@
 package pl.edu.wat.wcy.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.edu.wat.wcy.model.person.user.UserType;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,20 +15,18 @@ public class AuthenticatedUser implements UserDetails {
 
     private String username;
 
-    //private UserType userType;
+    private UserType userType;
 
-    public AuthenticatedUser(long id, String username/*, UserType userType*/) {
+    public AuthenticatedUser(long id, String username, String role) {
         this.id = id;
         this.username = requireNonNull(username, "username");
+        this.userType = UserType.valueOf(role);
         //this.userType = requireNonNull(userType, "user type");
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //List<UserType> list = new ArrayList<>();
-        //list.add(userType);
-        //return list;
-        return Collections.EMPTY_LIST;
+        return Collections.singletonList(new SimpleGrantedAuthority(userType.name()));
     }
 
     public long getId() {
