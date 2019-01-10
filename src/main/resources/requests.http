@@ -120,15 +120,16 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/disease/Pikejoza
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNS0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc0NTI0N9BRSq0ogAgYGVuYggSK8nNSgTpc_J1D_IOUagH2C6wCWwAAAA.OKKeBORPqlDycyu4ZIWEKYleEuB-cgmr3foyI_KB6Xo
 
 ###
 
 POST http://localhost:8080/disease/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNQ0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTUyMbc0MNJRSq0ogAgYG5sYgwSK8nNSgTpc_J1D_IOUagF7opyIWwAAAA.kz2SPiOO_zsZBeDc8Lndf6Xp4Js9paO1pW41ZzRQJqA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNS0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc0MTc2NtFRSq0ogAgYGRubgwSK8nNSgTpc_J1D_IOUagFBBKSGWwAAAA.BDVmzJc7pOeJpFmcbeLtYjk6oaV9w9sgocs_DIQjS9Y
 
 {
-  "name": "Pikejoza Martwicza 2",
+  "name": "Pikejoza",
   "description": "Choroba bezobjawowa atakująca studentów WAT."
 }
 

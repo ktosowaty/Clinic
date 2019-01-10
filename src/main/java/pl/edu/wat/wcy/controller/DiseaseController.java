@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.disease.DiseaseDto;
+import pl.edu.wat.wcy.dto.disease.DiseaseProjection;
 import pl.edu.wat.wcy.exception.AuthenticationException;
 import pl.edu.wat.wcy.model.person.user.UserType;
 import pl.edu.wat.wcy.security.AuthenticatedUser;
@@ -23,11 +24,11 @@ public class DiseaseController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<DiseaseDto> getDisease(@AuthenticationPrincipal AuthenticatedUser user,
-                                                 @PathVariable String name) {
+    public ResponseEntity<DiseaseProjection> getDisease(@AuthenticationPrincipal AuthenticatedUser user,
+                                                        @PathVariable String name) {
         if (user.getUserType() != UserType.DOCTOR) throw new AuthenticationException(user.getUsername());
-        DiseaseDto diseaseDto = diseaseService.findDisease(name);
-        return new ResponseEntity<>(diseaseDto, HttpStatus.OK);
+        DiseaseProjection projection = diseaseService.findDisease(name);
+        return new ResponseEntity<>(projection, HttpStatus.OK);
     }
 
     @PostMapping("/create")
