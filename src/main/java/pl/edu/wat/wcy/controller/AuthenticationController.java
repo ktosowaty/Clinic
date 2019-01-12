@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wat.wcy.dto.auth.LoginDto;
-import pl.edu.wat.wcy.dto.auth.TokenDto;
+import pl.edu.wat.wcy.dto.auth.LoginRequestDto;
+import pl.edu.wat.wcy.dto.auth.LoginResponseDto;
 import pl.edu.wat.wcy.service.auth.PasswordAuthenticator;
 
 @RestController
@@ -20,8 +20,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<TokenDto> login(@RequestBody LoginDto request) {
-        String token = authenticator.login(request.getUsername(), request.getPassword());
-        return new ResponseEntity<>(new TokenDto(token), HttpStatus.CREATED);
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto request) {
+        LoginResponseDto response = authenticator.login(request.getUsername(), request.getPassword());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
