@@ -31,9 +31,8 @@ public class UserAuthenticator implements PasswordAuthenticator {
         Username name = user.getUsername();
         Email email = user.getEmail();
         UserType userType = user.getUserType();
-        long personId = user.getPerson().getId();
         String token = newToken(user);
-        return new LoginResponseDto(name, email, userType, personId, token);
+        return new LoginResponseDto(name, email, userType, token);
     }
 
     private User findUser(String username) {

@@ -11,17 +11,14 @@ public class LoginResponseDto {
 
     private UserType userType;
 
-    private long personId;
-
     private String token;
 
     private LoginResponseDto() {}
 
-    public LoginResponseDto(Username username, Email email, UserType userType, long personId, String token) {
+    public LoginResponseDto(Username username, Email email, UserType userType, String token) {
         this.username = username;
         this.email = email;
         this.userType = userType;
-        this.personId = personId;
         this.token = token;
     }
 
@@ -35,10 +32,6 @@ public class LoginResponseDto {
 
     public UserType getUserType() {
         return userType;
-    }
-
-    public long getPersonId() {
-        return personId;
     }
 
     public String getToken() {
