@@ -105,28 +105,30 @@ Content-Type: application/json
 
 
 GET http://localhost:8080/medicine/Xyzal
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc2t7Q0NNFRSq0ogAiYmJkZgwSK8nNSgTpc_J1D_IOUagE15InTWwAAAA.mFOncqqwZRItMcM4Cq-MqtD3-2lvw-m8tRP8zRWSHi8
 
 ###
 
 POST http://localhost:8080/medicine/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc2t7Q0NNFRSq0ogAiYmJkZgwSK8nNSgTpc_J1D_IOUagE15InTWwAAAA.mFOncqqwZRItMcM4Cq-MqtD3-2lvw-m8tRP8zRWSHi8
 Content-Type: application/json
 
 {
-  "name": "Wpierdol Forte",
-  "description": "Lek bólowy, gorączkowy, zapalny.",
-  "sideEffects": "Okazjonalne krwawienie z nosa."
+  "name": "Xyzal",
+  "description": "Lek przeciwalergiczny.",
+  "sideEffects": "Otępienie, senność."
 }
 
 ###
 
 GET http://localhost:8080/disease/Pikejoza
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNS0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc0NTI0N9BRSq0ogAgYGVuYggSK8nNSgTpc_J1D_IOUagH2C6wCWwAAAA.OKKeBORPqlDycyu4ZIWEKYleEuB-cgmr3foyI_KB6Xo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc2tzQwNdBRSq0ogAiYmJmagASK8nNSgTpc_J1D_IOUagH1q49HWwAAAA.eehMA628tV_PfT058DhZh5rHZ5hrRq3FmP4oEszJ5lE
 
 ###
 
 POST http://localhost:8080/disease/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNS0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc0MTc2NtFRSq0ogAgYGRubgwSK8nNSgTpc_J1D_IOUagFBBKSGWwAAAA.BDVmzJc7pOeJpFmcbeLtYjk6oaV9w9sgocs_DIQjS9Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc2tzQwNdBRSq0ogAiYmJmagASK8nNSgTpc_J1D_IOUagH1q49HWwAAAA.eehMA628tV_PfT058DhZh5rHZ5hrRq3FmP4oEszJ5lE
 
 {
   "name": "Pikejoza",
