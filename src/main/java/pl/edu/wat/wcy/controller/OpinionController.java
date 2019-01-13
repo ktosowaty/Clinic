@@ -3,7 +3,6 @@ package pl.edu.wat.wcy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wat.wcy.dto.opinion.OpinionRequestDto;
@@ -27,7 +26,6 @@ public class OpinionController {
         this.opinionService = opinionService;
     }
 
-    @Secured("PATIENT")
     @GetMapping("/doctor/{firstName}-{surname}")
     public ResponseEntity<List<OpinionProjection>> getOpinionsForDoctor(@AuthenticationPrincipal AuthenticatedUser user,
                                                                         @PathVariable String firstName,
@@ -37,7 +35,6 @@ public class OpinionController {
         return new ResponseEntity<>(opinions, HttpStatus.OK);
     }
 
-    @Secured("PATIENT")
     @PostMapping("/create")
     public ResponseEntity<OpinionResponseDto> postOpinion(@AuthenticationPrincipal AuthenticatedUser user,
                                                           @RequestBody OpinionRequestDto request) {

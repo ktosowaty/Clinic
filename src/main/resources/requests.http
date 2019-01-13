@@ -145,10 +145,10 @@ POST http://localhost:8080/user/register
 Content-Type: application/json
 
 {
-  "username": "house",
-  "plainPassword": "housowicz",
-  "email": "house.house@gmail.com",
-  "userType": "DOCTOR"
+  "username": "bolopital",
+  "plainPassword": "jebacWat",
+  "email": "bolowiecki@gmail.com",
+  "userType": "PATIENT"
 }
 
 ###
@@ -169,19 +169,19 @@ POST http://localhost:8080/public/auth/login
 Content-Type: application/json
 
 {
-  "username": "house",
-  "password": "housowicz"
+  "username": "bolopital",
+  "password": "jebacWat"
 }
 
 ###
 
-POST http://localhost:8080/patient/register
+POST http://localhost:8080/patient/register/own
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMrVQ0lEqLk0CMgsys1OzUnOzUotLUnOBopnFxUDR5JzMvMxkEDexRMnK0NTE1MjE1MDSUkcptaIAImBsbGgCEijKz0kF6ghwDPF09QtRqgUAuQVnymQAAAA.yaSc9k6NGy-F_lacDJBvjRNoIPz4KUVUSH6QodlzWZw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNV0lEqLk0CMpPyc_ILMksSc4AimcXFQJHknMy8zGQQN7FEycrQ1MTc2MLU1MJARym1ogAiYGJuaAkSKMrPSQXqCHAM8XT1C1GqBQDCAwN5YAAAAA.scqdq8w5SRb6EclXJ5yL_8UzFiZLRIpxabT-YfYEeDA
 
 {
-  "firstName": "Pikej",
-  "surname": "Pikejowicz",
+  "firstName": "Bolo",
+  "surname": "Bolowicz",
   "secondName": null,
   "gender": "MALE",
   "birthDateStr": "1997-03-15",
@@ -192,5 +192,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyir
   "provinceStr": "mazowieckie",
   "phoneNumberStr": "987654321"
 }
+
+###
+
+GET http://localhost:8080/doctor/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNV0lEqLk0CMpPyc_ILMksSc4AimcXFQJHknMy8zGQQN7FEycrQ1MTc2MLU3NJCRym1ogAiYGJuZAgSKMrPSQXqCHAM8XT1C1GqBQCD2n85YAAAAA.hKJjXR8PhQ-eNLDmhPLpZjgShwk4Sc5yHJYilhFMklQ
 
 ###
