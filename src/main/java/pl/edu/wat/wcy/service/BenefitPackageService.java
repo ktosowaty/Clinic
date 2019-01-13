@@ -13,6 +13,7 @@ import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 import pl.edu.wat.wcy.model.person.user.User;
 import pl.edu.wat.wcy.repository.BenefitPackageRepository;
+import pl.edu.wat.wcy.repository.PatientRepository;
 import pl.edu.wat.wcy.repository.PurchaseRepository;
 import pl.edu.wat.wcy.repository.UserRepository;
 import pl.edu.wat.wcy.security.AuthenticatedUser;
@@ -27,13 +28,15 @@ public class BenefitPackageService {
     private final BenefitPackageRepository benefitPackageRepository;
     private final UserRepository userRepository;
     private final PurchaseRepository purchaseRepository;
+    private final PatientRepository patientRepository;
 
     @Autowired
     public BenefitPackageService(BenefitPackageRepository benefitPackageRepository, UserRepository userRepository,
-                                 PurchaseRepository purchaseRepository) {
+                                 PurchaseRepository purchaseRepository, PatientRepository patientRepository) {
         this.benefitPackageRepository = benefitPackageRepository;
         this.userRepository = userRepository;
         this.purchaseRepository = purchaseRepository;
+        this.patientRepository = patientRepository;
     }
 
     public List<BenefitPackageProjection> findPackages() {
@@ -42,7 +45,7 @@ public class BenefitPackageService {
 
     public PurchaseResponseDto purchasePackage(AuthenticatedUser authenticatedUser, PurchaseRequestDto purchaseRequestDto) {
         User user = findUser(authenticatedUser.getId());
-        Patient patient = (Patient) user.getPerson();
+        Patient patient = findPatient(user.getPerson().getId());
         BenefitPackage benefitPackage = findPackage(purchaseRequestDto.getBenefitPackageId());
         Purchase purchase = new Purchase(patient, benefitPackage);
         purchaseRepository.save(purchase);
@@ -52,6 +55,11 @@ public class BenefitPackageService {
     private User findUser(long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user", userId));
+    }
+
+    private Patient findPatient(long patientId) {
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("patient", patientId));
     }
 
     private BenefitPackage findPackage(long packageId) {
