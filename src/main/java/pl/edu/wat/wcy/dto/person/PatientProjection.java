@@ -7,6 +7,8 @@ import pl.edu.wat.wcy.model.person.data.Pesel;
 import java.time.LocalDate;
 
 public interface PatientProjection {
+    long getId();
+
     @Value("#{target.fullName.name}")
     Name getName();
 
