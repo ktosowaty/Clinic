@@ -1,20 +1,21 @@
-GET http://localhost:8080/history/patient/95031709099
+GET http://localhost:8080/history/patient/97031509099
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTcxMDS1MNVRSq0ogApYmFuCBIryc1KBOlz8nUP8g5RqAUQkzAZbAAAA.Efp0Euwg6fFsWPhyouEZonxemW35eUSJqMwLRNuIpos
 
 ###
 
 GET http://localhost:8080/opinion/doctor/Gregory-House
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNV0lEqLk0CMpPyc_ILMksSc4AimcXFQJHknMy8zGQQN7FEycrQ1MTcxNTYxMxYRym1ogAiYGpsaQESKMrPSQXqCHAM8XT1C1GqBQDwbEVpYAAAAA.L7Wihy3lz7TpdKAAiROnJtaSrgX1D9os3AQhj2OvW_o
 
 ###
 
 POST http://localhost:8080/opinion/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNV0lEqLk0CMpPyc_ILMksSc4AimcXFQJHknMy8zGQQN7FEycrQ1MTcxNTYxMxYRym1ogAiYGpsaQESKMrPSQXqCHAM8XT1C1GqBQDwbEVpYAAAAA.L7Wihy3lz7TpdKAAiROnJtaSrgX1D9os3AQhj2OvW_o
 
 {
-  "patientId": 1,
-  "doctorId": 4,
-  "filingDateStr":"2018-04-15",
-  "opinion": "Najs",
-  "rate":"GOOD"
+  "doctorId": 67,
+  "opinion": "Zajebisty lekarz, polecam. Janusz z Łomży",
+  "rate":"REALLY_GOOD"
 }
 
 ###
@@ -122,7 +123,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/disease/Pikejoza
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc2tzQwNdBRSq0ogAiYmJmagASK8nNSgTpc_J1D_IOUagH1q49HWwAAAA.eehMA628tV_PfT058DhZh5rHZ5hrRq3FmP4oEszJ5lE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTcxMDS1MNVRSq0ogApYmFuCBIryc1KBOlz8nUP8g5RqAUQkzAZbAAAA.Efp0Euwg6fFsWPhyouEZonxemW35eUSJqMwLRNuIpos
 
 ###
 
@@ -157,8 +158,8 @@ POST http://localhost:8080/public/auth/login
 Content-Type: application/json
 
 {
-  "username": "pikejemJestem",
-  "password": "heheszki"
+  "username": "house",
+  "password": "housowicz"
 }
 
 ###
@@ -197,5 +198,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyir
 
 GET http://localhost:8080/doctor/all
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNV0lEqLk0CMpPyc_ILMksSc4AimcXFQJHknMy8zGQQN7FEycrQ1MTc2MLU3NJCRym1ogAiYGJuZAgSKMrPSQXqCHAM8XT1C1GqBQCD2n85YAAAAA.hKJjXR8PhQ-eNLDmhPLpZjgShwk4Sc5yHJYilhFMklQ
+
+###
+
+GET http://localhost:8080/package/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNV0lEqLk0CMpPyc_ILMksSc4AimcXFQJHknMy8zGQQN7FEycrQ1MTcxMDI3NxURym1ogAqYGFpCBIoys9JBeoIcAzxdPULUaoFAMTzO-lgAAAA.gRBcgs9L9hWKcrrz44WJUjF_rCmcBb3B_f5QXJ259a0
+
+###
+
+POST http://localhost:8080/package/purchase
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNV0lEqLk0CMpPyc_ILMksSc4AimcXFQJHknMy8zGQQN7FEycrQ1MTcxMDI3NxURym1ogAqYGFpCBIoys9JBeoIcAzxdPULUaoFAMTzO-lgAAAA.gRBcgs9L9hWKcrrz44WJUjF_rCmcBb3B_f5QXJ259a0
+
+{
+  "benefitPackageId": 1
+}
 
 ###

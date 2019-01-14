@@ -28,14 +28,17 @@ public class OpinionService {
     private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
     private final VisitRepository visitRepository;
+    private final PatientRepository patientRepository;
 
     @Autowired
     public OpinionService(OpinionRepository opinionRepository, UserRepository userRepository,
-                          DoctorRepository doctorRepository, VisitRepository visitRepository) {
+                          DoctorRepository doctorRepository, VisitRepository visitRepository,
+                          PatientRepository patientRepository) {
         this.opinionRepository = opinionRepository;
         this.userRepository = userRepository;
         this.doctorRepository = doctorRepository;
         this.visitRepository = visitRepository;
+        this.patientRepository = patientRepository;
     }
 
     public List<OpinionProjection> findOpinionsForDoctor(String firstName, String surname) {
@@ -53,7 +56,7 @@ public class OpinionService {
 
     private Opinion createOpinion(AuthenticatedUser authenticatedUser, OpinionRequestDto opinionRequestDto) {
         User user = findUser(authenticatedUser.getId());
-        Patient patient = (Patient) user.getPerson();
+        Patient patient = findPatient(user.getPerson().getId());
         Doctor doctor = findDoctor(opinionRequestDto.getDoctorId());
         String description = opinionRequestDto.getOpinion();
         Rate rate = opinionRequestDto.getRate();
@@ -63,6 +66,11 @@ public class OpinionService {
     private User findUser(long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user", userId));
+    }
+
+    private Patient findPatient(long patientId) {
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new ResourceNotFoundException("patient", patientId));
     }
 
     private Doctor findDoctor(long doctorId) {
