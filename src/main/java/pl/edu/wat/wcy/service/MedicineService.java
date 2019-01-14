@@ -9,6 +9,7 @@ import pl.edu.wat.wcy.model.disease.Medicine;
 import pl.edu.wat.wcy.repository.MedicineRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +34,10 @@ public class MedicineService {
         String sideEffects = medicineDto.getSideEffects();
         Medicine medicine = new Medicine(name, description, sideEffects);
         medicineRepository.save(medicine);
+    }
+
+    public List<MedicineProjection> findMedicines() {
+        return medicineRepository.findAllProjectedBy();
     }
 
     private void checkIfMedicineExist(String name) {
