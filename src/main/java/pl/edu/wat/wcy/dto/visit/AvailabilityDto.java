@@ -5,6 +5,8 @@ import pl.edu.wat.wcy.model.person.doctor.Specialization;
 import java.time.LocalDateTime;
 
 public class AvailabilityDto {
+    private long doctorId;
+
     private String doctorFirstName;
 
     private String doctorSurname;
@@ -15,12 +17,17 @@ public class AvailabilityDto {
 
     private AvailabilityDto() {}
 
-    public AvailabilityDto(String doctorFirstName, String doctorSurname,
+    public AvailabilityDto(long doctorId, String doctorFirstName, String doctorSurname,
                            Specialization specialization, LocalDateTime visitStart) {
+        this.doctorId = doctorId;
         this.doctorFirstName = doctorFirstName;
         this.doctorSurname = doctorSurname;
         this.specialization = specialization;
         this.visitStart = visitStart;
+    }
+
+    public long getDoctorId() {
+        return doctorId;
     }
 
     public String getDoctorFirstName() {

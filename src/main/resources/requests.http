@@ -42,6 +42,7 @@ Content-Type: application/json
 
 GET http://localhost:8080/patient/pesel/95031709099
 
+
 ###
 
 GET http://localhost:8080/patient/name/Konrad-Bolczyk
@@ -213,5 +214,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyir
 {
   "benefitPackageId": 1
 }
+
+###
+GET http://localhost:8080/patient/pesel/97031509099
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWyirJVLJSMjNW0lEqLk0CMjPyS4tTgbzM4mIgLzknMy8zGcRNLFGyMjQ1MTc1MTSzsNRRSq0ogAiYGVkYgASK8nNSgTpc_J1D_IOUagGYdLaCWwAAAA.5Wu99Oric6lZGvUfar49dXTeJxNsxpMG2QVx9VJY-H8
 
 ###

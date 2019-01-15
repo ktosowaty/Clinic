@@ -15,8 +15,8 @@ import java.util.Optional;
 
 @Repository
 public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
-    @Query("select new pl.edu.wat.wcy.dto.visit.AvailabilityDto (d.fullName.name.firstName, d.fullName.name.surname, " +
-            "d.specialization, a.visitStart) " +
+    @Query("select new pl.edu.wat.wcy.dto.visit.AvailabilityDto (d.id, d.fullName.name.firstName, " +
+            "d.fullName.name.surname, d.specialization, a.visitStart) " +
             "from Doctor as d " +
             "left join Availability as a on a.doctor.id = d.id " +
             "left join Visit as v on a.visitStart = v.visitStart " +
@@ -25,8 +25,8 @@ public interface AvailabilityRepository extends JpaRepository<Availability, Long
             "order by a.visitStart asc")
     List<AvailabilityDto> findAvailabilitiesForSpecialization(@Param("specialization") Specialization specialization);
 
-    @Query("select new pl.edu.wat.wcy.dto.visit.AvailabilityDto (d.fullName.name.firstName, d.fullName.name.surname, " +
-            "d.specialization, a.visitStart) " +
+    @Query("select new pl.edu.wat.wcy.dto.visit.AvailabilityDto (d.id, d.fullName.name.firstName, " +
+            "d.fullName.name.surname, d.specialization, a.visitStart) " +
             "from Doctor as d " +
             "left join Availability as a on a.doctor.id = d.id " +
             "left join Visit as v on a.visitStart = v.visitStart " +
