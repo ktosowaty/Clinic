@@ -72,7 +72,7 @@ public class VisitService {
 
     public VisitResponseDto reserveVisitByPatient(AuthenticatedUser authenticatedUser, PatientVisitRequestDto request) {
         User user = findUser(authenticatedUser.getId());
-        Patient patient = (Patient) user.getPerson();
+        Patient patient = findPatient(user.getPerson().getId());
         Doctor doctor = findDoctor(request.getDoctorId());
         LocalDateTime visitStart = verifyVisitStart(request.getVisitStartStr(), doctor);
         Money cost = calculateCost(doctor, patient);
