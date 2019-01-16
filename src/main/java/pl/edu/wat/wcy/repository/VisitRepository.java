@@ -7,11 +7,12 @@ import pl.edu.wat.wcy.model.visit.Visit;
 import pl.edu.wat.wcy.model.person.doctor.Doctor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     Optional<Visit> findByVisitStartAndDoctor(LocalDateTime visitStart, Doctor doctor);
 
-    Optional<Visit> findByPatientAndDoctor(Patient patient, Doctor doctor);
+    List<Visit> findAllByPatientAndDoctor(Patient patient, Doctor doctor);
 }

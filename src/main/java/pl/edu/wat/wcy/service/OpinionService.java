@@ -79,8 +79,8 @@ public class OpinionService {
     }
 
     private void checkIfPatientVisitedDoctor(Patient patient, Doctor doctor) {
-        Optional<Visit> visit = visitRepository.findByPatientAndDoctor(patient, doctor);
-        if (!visit.isPresent()) throw new IllegalArgumentException("Given patient didn't visit given doctor.");
+        List<Visit> visits = visitRepository.findAllByPatientAndDoctor(patient, doctor);
+        if (visits.isEmpty()) throw new IllegalArgumentException("Given patient didn't visit given doctor.");
     }
 
     private void checkIfOpinionExist(Patient patient, Doctor doctor) {
