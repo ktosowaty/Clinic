@@ -19,6 +19,7 @@ import pl.edu.wat.wcy.security.AuthenticatedUser;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,6 +57,10 @@ public class PatientService {
         User user = findUser(authenticatedUser.getId());
         user.setPerson(patient);
         userRepository.save(user);
+    }
+
+    public List<PatientProjection> findPatients() {
+        return patientRepository.findAllProjectedBy();
     }
 
     private Patient createPatient(PatientDto patientDto) {

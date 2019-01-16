@@ -6,6 +6,7 @@ import pl.edu.wat.wcy.model.person.data.name.Name;
 import pl.edu.wat.wcy.model.person.data.Pesel;
 import pl.edu.wat.wcy.model.person.patient.Patient;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,4 +14,6 @@ public interface PatientRepository extends PersonRepository<Patient> {
     Optional<PatientProjection> findByPesel(Pesel pesel);
 
     Optional<PatientProjection> findByFullNameName(Name name);
+
+    List<PatientProjection> findAllProjectedBy();
 }

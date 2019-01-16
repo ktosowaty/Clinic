@@ -14,6 +14,8 @@ import pl.edu.wat.wcy.model.person.user.UserType;
 import pl.edu.wat.wcy.security.AuthenticatedUser;
 import pl.edu.wat.wcy.service.PatientService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/patient")
@@ -58,5 +60,13 @@ public class PatientController {
         if (user.getUserType() != UserType.PATIENT) throw new AuthenticationException(user.getUsername());
         patientService.savePatientByHimself(user, patientDto);
         return new ResponseEntity<>(patientDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PatientProjection>> getPatients(@AuthenticationPrincipal AuthenticatedUser user) {
+        if (user.getUserType() != UserType.DOCTOR && user.getUserType() != UserType.SECRETARY)
+            throw new AuthenticationException(user.getUsername());
+        List<PatientProjection> patients = patientService.findPatients();
+        return new ResponseEntity<>(patients, HttpStatus.OK);
     }
 }
