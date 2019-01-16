@@ -1,0 +1,44 @@
+ <div class="report-container">
+    <div *ngIf="history">
+      <div class="t-Region">
+        <div class="t-Region-header">
+          <div class="t-Region-headerItems--title">
+            Historia chorób
+          </div>
+
+        </div>
+        <div class=t-Region-body>
+          <div *ngIf="history.length == 0" class="no-data-found">
+          <span>
+            <fa name="search"></fa> Nie znaleziono żadnej choroby.
+          </span>
+          </div>
+          <div *ngIf="history.length > 0" class="report-container-inner">
+            <div class="table-responsive">
+              <table id="bookTable" class="table table-hover">
+                <thead>
+                <tr>
+                  <th scope="col">Nazwa choroby</th>
+                  <th scope="col">Diagnoza</th>
+                  <th scope="col">Data Diagnozy</th>
+                  <th scope="col">Zażywany lek</th>
+                  <th scope="col">Dawkowanie leku</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let history of history" >
+                  <td>{{history.diseaseName}}</td>
+                  <td>{{history.diagnosis}}</td>
+                  <td>{{history.diagnosisDate}}</td>
+                  <td>{{history.medicineName}}</td>
+                  <td>{{history.medicineDosage}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

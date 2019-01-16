@@ -1,0 +1,59 @@
+<a  class="btn btn-primary" routerLink="/visit-secretary">Powrót do lekarzy</a>
+
+
+<div class="form">
+  <form class="search-form" [formGroup]="formGroup" (validSubmit)="getSpecializationAvabilities()">
+    <div class="form-group" [customErrorMessages]="customErrorMessages">
+      <label for="specialization">Dostępności specjalistów</label>
+      <input type="text" formControlName="specialization" class="form-control" placeholder="Specjalizacja"/>
+      <button type="click" class="btn btn-primary">Wyświetl dostępności</button>
+      <div class="t-Region-headerItems--button">
+      </div>
+    </div>
+  </form>
+
+  <div class="report-container">
+    <div *ngIf="avability">
+      <div class="t-Region">
+        <div class="t-Region-header">
+          <div class="t-Region-headerItems--title">
+            Kalendarz dostępności
+          </div>
+
+        </div>
+        <div class=t-Region-body>
+
+          <div  class="report-container-inner">
+            <div class="table-responsive">
+              <table id="readersTable" class="table table-hover">
+                <thead>
+                <tr>
+                  <th scope="col">Rezerwacja</th>
+                  <th scope="col">Doktor</th>
+                  <th scope="col">Specjalizacja</th>
+                  <th scope="col">Wolny termin</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let avability of avability" >
+                  <a href="javascript: void(0)"
+                     (click)="callReservationPatient(avability.doctorId, avability.visitStart)"
+                     title="Rezerwuj">
+                    Rezerwuj wizytę
+                  </a>
+                  <td>{{avability.doctorFirstName}} {{avability.doctorSurname}}</td>
+                  <td>{{avability.specialization}}</td>
+                  <td>{{avability.visitStart}}</td>
+
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

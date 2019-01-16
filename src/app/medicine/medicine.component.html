@@ -1,0 +1,108 @@
+ <div class="form">
+    <form class="search-form" [formGroup]="formGroup" (validSubmit)="getMedicine()">
+      <div class="form-group" [customErrorMessages]="customErrorMessages">
+        <!--<label for="name">Nazwa leku</label>-->
+        <!--<input type="text" formControlName="name" class="form-control" placeholder="Lek"/>-->
+        <div class="form-group" [customErrorMessages]="customErrorMessages">
+          <label class="control-label">Lek</label>
+          <ng-select [items]="medicinesArray"
+                     bindLabel="name"
+                     bindValue="name"
+                     placeholder="Wybierz lek"
+                     [(ngModel)]="selectedMedicine"
+                     formControlName="name">
+          </ng-select>
+        </div>
+        <button type="click" class="btn btn-primary">Wyświetl szczegóły</button>
+      </div>
+    </form>
+
+    <div class="report-container">
+      <div *ngIf="medicine">
+        <div class="t-Region">
+          <div class="t-Region-header">
+            <div class="t-Region-headerItems--title">
+              Opis
+            </div>
+            <div class="t-Region-headerItems--button">
+              <button type="button"
+                      class="btn btn-primary"
+
+                      data-toggle="modal"
+                      data-target="#createMedicineModal">
+                <fa name="plus"></fa> Dodaj
+              </button>
+            </div>
+          </div>
+          <div class=t-Region-body>
+
+            <div  class="report-container-inner">
+              <div class="table-responsive">
+                <table id="readersTable" class="table table-hover">
+                  <thead>
+                  <tr>
+
+                    <th scope="col">Opis</th>
+                    <th scope="col">Skutki uboczne</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr >
+                    <td>{{medicine.description}}</td>
+                    <td>{{medicine.sideEffects}}</td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="modal fade" id="createMedicineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Dodaj lek</h5>
+          <button type="button" sclass="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="formGroupModal" (validSubmit)="createMedicine()">
+                <div class="form-group" [customErrorMessages]="customErrorMessages">
+                  <label class="control-label">Opis</label>
+                  <input type="text" class="form-control" formControlName="description">
+                </div>
+                <div class="form-group" [customErrorMessages]="customErrorMessages">
+                  <label class="control-label">Nazwa</label>
+                  <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="form-group" [customErrorMessages]="customErrorMessages">
+                  <label class="control-label">Skutki uboczne</label>
+                  <input type="text" class="form-control" formControlName="sideEffects">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary left" data-dismiss="modal">Zamknij</button>
+                  <button type="submit" class="btn btn-primary right" >
+                    <fa name="save"></fa> Zapisz
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+

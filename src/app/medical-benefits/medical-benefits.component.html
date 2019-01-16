@@ -1,0 +1,49 @@
+
+<div class="report-container">
+  <div *ngIf="packages">
+    <div class="t-Region">
+      <div class="t-Region-header">
+        <div class="t-Region-headerItems--title">
+          Lista pakietów
+        </div>
+
+      </div>
+      <div class=t-Region-body>
+        <div *ngIf="packages.length == 0" class="no-data-found">
+          <span>
+            <fa name="search"></fa> Nie znaleziono żadnego pakietu.
+          </span>
+        </div>
+        <div *ngIf="packages.length > 0" class="report-container-inner">
+          <div class="table-responsive">
+            <table id="bookTable" class="table table-hover">
+              <thead>
+              <tr>
+                <th scope="col">Zakup</th>
+
+                <th scope="col">Typ</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Koszt</th>
+
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let package of packages" >
+                <a href="javascript: void(0)"
+                   (click)="callPruchase(package.id)"
+                   title="Kup pakiet">
+                  Kup pakiet
+                </a>
+                <td>{{package.name}}</td>
+                <td>{{package.description}}</td>
+                <td>{{package.yearCost.cost}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

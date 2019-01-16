@@ -1,0 +1,105 @@
+
+  <div class="form">
+    <form class="search-form" [formGroup]="formGroup" (validSubmit)="getDisease()">
+      <div class="form-group" [customErrorMessages]="customErrorMessages">
+        <!--<label for="name">Choroba</label>-->
+        <!--<input type="text" formControlName="name" class="form-control" placeholder="Choroba"/>-->
+        <div class="form-group" [customErrorMessages]="customErrorMessages">
+          <label class="control-label">Choroba</label>
+          <ng-select [items]="diseasesArray"
+                     bindLabel="name"
+                     bindValue="name"
+                     placeholder="Wybierz chorobę"
+                     [(ngModel)]="selectedDisease"
+                     formControlName="name">
+          </ng-select>
+        </div>
+        <button type="click" class="btn btn-primary">Wyświetl szczegóły</button>
+      </div>
+    </form>
+
+    <div class="report-container">
+      <div *ngIf="disease">
+        <div class="t-Region">
+          <div class="t-Region-header">
+            <div class="t-Region-headerItems--title">
+              Choroba
+            </div>
+            <div class="t-Region-headerItems--button">
+              <button type="button"
+                      class="btn btn-primary"
+
+                      data-toggle="modal"
+                      data-target="#createReaderModal">
+                <fa name="plus"></fa> Dodaj
+              </button>
+            </div>
+          </div>
+          <div class=t-Region-body>
+
+            <div  class="report-container-inner">
+              <div class="table-responsive">
+                <table id="readersTable" class="table table-hover">
+                  <thead>
+                  <tr>
+
+                    <th scope="col">Opis</th>
+                    <th scope="col">Choroba</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr >
+                    <td>{{disease.description}}</td>
+                    <td>{{disease.name}}</td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<div style="margin-left:25%">
+<div class="modal fade" id="createReaderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Dodaj chorobę</h5>
+        <button type="button" sclass="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form [formGroup]="formGroupModal" (validSubmit)="createDisease()">
+              <div class="form-group" [customErrorMessages]="customErrorMessages">
+                <label class="control-label">Choroba</label>
+                <input type="text" class="form-control" formControlName="name">
+              </div>
+              <div class="form-group" [customErrorMessages]="customErrorMessages">
+                <label class="control-label">Opis</label>
+                <input type="text" class="form-control" formControlName="description">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary left" data-dismiss="modal">Zamknij</button>
+                <button type="submit" class="btn btn-primary right" >
+                  <fa name="save"></fa> Zapisz
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</div>
+
